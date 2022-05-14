@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		6C8269AABFBED264B26DBE6A /* Pods_Lavender.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2926D9B0DE5614D19D3CDB4D /* Pods_Lavender.framework */; };
 		78F122B8282C14E200983574 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F122B7282C14E200983574 /* AppDelegate.swift */; };
 		78F122BA282C14E200983574 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F122B9282C14E200983574 /* SceneDelegate.swift */; };
 		78F122BF282C14E200983574 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78F122BD282C14E200983574 /* Main.storyboard */; };
@@ -14,9 +15,12 @@
 		78F122C4282C14E300983574 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78F122C2282C14E300983574 /* LaunchScreen.storyboard */; };
 		78F122CF282C176700983574 /* LoginVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F122CE282C176700983574 /* LoginVC.swift */; };
 		78F122D2282C1DD800983574 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F122D1282C1DD800983574 /* Extensions.swift */; };
+		78F122D4282E46A900983574 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F122D3282E46A900983574 /* SignUpVC.swift */; };
+		78F122D6282E511000983574 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 78F122D5282E511000983574 /* GoogleService-Info.plist */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		2926D9B0DE5614D19D3CDB4D /* Pods_Lavender.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lavender.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		78F122B4282C14E200983574 /* Lavender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lavender.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78F122B7282C14E200983574 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78F122B9282C14E200983574 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -26,6 +30,10 @@
 		78F122C5282C14E300983574 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		78F122CE282C176700983574 /* LoginVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginVC.swift; sourceTree = "<group>"; };
 		78F122D1282C1DD800983574 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		78F122D3282E46A900983574 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
+		78F122D5282E511000983574 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		A83025B2759D07E5179522BB /* Pods-Lavender.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lavender.release.xcconfig"; path = "Target Support Files/Pods-Lavender/Pods-Lavender.release.xcconfig"; sourceTree = "<group>"; };
+		F431A09245E33C5E3F3942E1 /* Pods-Lavender.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lavender.debug.xcconfig"; path = "Target Support Files/Pods-Lavender/Pods-Lavender.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -33,17 +41,28 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				6C8269AABFBED264B26DBE6A /* Pods_Lavender.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		7370F4CBEF93460E1C3490B2 /* Frameworks */ = {
+			isa = PBXGroup;
+			children = (
+				2926D9B0DE5614D19D3CDB4D /* Pods_Lavender.framework */,
+			);
+			name = Frameworks;
+			sourceTree = "<group>";
+		};
 		78F122AB282C14E200983574 = {
 			isa = PBXGroup;
 			children = (
 				78F122B6282C14E200983574 /* Lavender */,
 				78F122B5282C14E200983574 /* Products */,
+				FC5D02D39016896F4B332D1D /* Pods */,
+				7370F4CBEF93460E1C3490B2 /* Frameworks */,
 			);
 			sourceTree = "<group>";
 		};
@@ -66,6 +85,7 @@
 				78F122B9282C14E200983574 /* SceneDelegate.swift */,
 				78F122BD282C14E200983574 /* Main.storyboard */,
 				78F122C0282C14E300983574 /* Assets.xcassets */,
+				78F122D5282E511000983574 /* GoogleService-Info.plist */,
 				78F122C2282C14E300983574 /* LaunchScreen.storyboard */,
 				78F122C5282C14E300983574 /* Info.plist */,
 			);
@@ -76,6 +96,7 @@
 			isa = PBXGroup;
 			children = (
 				78F122CE282C176700983574 /* LoginVC.swift */,
+				78F122D3282E46A900983574 /* SignUpVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -102,6 +123,16 @@
 			path = Utils;
 			sourceTree = "<group>";
 		};
+		FC5D02D39016896F4B332D1D /* Pods */ = {
+			isa = PBXGroup;
+			children = (
+				F431A09245E33C5E3F3942E1 /* Pods-Lavender.debug.xcconfig */,
+				A83025B2759D07E5179522BB /* Pods-Lavender.release.xcconfig */,
+			);
+			name = Pods;
+			path = Pods;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -109,9 +140,11 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 78F122C8282C14E300983574 /* Build configuration list for PBXNativeTarget "Lavender" */;
 			buildPhases = (
+				CE9C4F395481BDC5693DA691 /* [CP] Check Pods Manifest.lock */,
 				78F122B0282C14E200983574 /* Sources */,
 				78F122B1282C14E200983574 /* Frameworks */,
 				78F122B2282C14E200983574 /* Resources */,
+				67257092F8F8B9DBDF8C3DEA /* [CP] Embed Pods Frameworks */,
 			);
 			buildRules = (
 			);
@@ -161,12 +194,55 @@
 			buildActionMask = 2147483647;
 			files = (
 				78F122C4282C14E300983574 /* LaunchScreen.storyboard in Resources */,
+				78F122D6282E511000983574 /* GoogleService-Info.plist in Resources */,
 				78F122C1282C14E300983574 /* Assets.xcassets in Resources */,
 				78F122BF282C14E200983574 /* Main.storyboard in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 /* End PBXResourcesBuildPhase section */
+
+/* Begin PBXShellScriptBuildPhase section */
+		67257092F8F8B9DBDF8C3DEA /* [CP] Embed Pods Frameworks */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Lavender/Pods-Lavender-frameworks-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Embed Pods Frameworks";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Lavender/Pods-Lavender-frameworks-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Lavender/Pods-Lavender-frameworks.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
+		CE9C4F395481BDC5693DA691 /* [CP] Check Pods Manifest.lock */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+				"${PODS_PODFILE_DIR_PATH}/Podfile.lock",
+				"${PODS_ROOT}/Manifest.lock",
+			);
+			name = "[CP] Check Pods Manifest.lock";
+			outputFileListPaths = (
+			);
+			outputPaths = (
+				"$(DERIVED_FILE_DIR)/Pods-Lavender-checkManifestLockResult.txt",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
+			showEnvVarsInLog = 0;
+		};
+/* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
 		78F122B0282C14E200983574 /* Sources */ = {
@@ -176,6 +252,7 @@
 				78F122B8282C14E200983574 /* AppDelegate.swift in Sources */,
 				78F122BA282C14E200983574 /* SceneDelegate.swift in Sources */,
 				78F122CF282C176700983574 /* LoginVC.swift in Sources */,
+				78F122D4282E46A900983574 /* SignUpVC.swift in Sources */,
 				78F122D2282C1DD800983574 /* Extensions.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -320,6 +397,7 @@
 		};
 		78F122C9282C14E300983574 /* Debug */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = F431A09245E33C5E3F3942E1 /* Pods-Lavender.debug.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
@@ -348,6 +426,7 @@
 		};
 		78F122CA282C14E300983574 /* Release */ = {
 			isa = XCBuildConfiguration;
+			baseConfigurationReference = A83025B2759D07E5179522BB /* Pods-Lavender.release.xcconfig */;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
