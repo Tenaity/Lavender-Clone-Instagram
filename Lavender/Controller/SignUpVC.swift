@@ -137,7 +137,6 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
                     })
                 }
             }
-           
         }
     }
     

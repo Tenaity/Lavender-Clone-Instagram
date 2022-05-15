@@ -17,6 +17,12 @@
 		78F122D2282C1DD800983574 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F122D1282C1DD800983574 /* Extensions.swift */; };
 		78F122D4282E46A900983574 /* SignUpVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F122D3282E46A900983574 /* SignUpVC.swift */; };
 		78F122D6282E511000983574 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 78F122D5282E511000983574 /* GoogleService-Info.plist */; };
+		78F4DEDD283002300055639A /* MainTabVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F4DEDC283002300055639A /* MainTabVC.swift */; };
+		78F4DEE2283005870055639A /* NotificationsVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F4DEE1283005870055639A /* NotificationsVC.swift */; };
+		78F4DEE6283009E30055639A /* UploadPostVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F4DEE5283009E30055639A /* UploadPostVC.swift */; };
+		78F4DEE828300A130055639A /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F4DEE728300A130055639A /* SearchVC.swift */; };
+		78F4DEEA2830D2D50055639A /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F4DEE92830D2D50055639A /* FeedVC.swift */; };
+		78F4DEEC2830D4250055639A /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F4DEEB2830D4250055639A /* UserProfileVC.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -32,6 +38,12 @@
 		78F122D1282C1DD800983574 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
 		78F122D3282E46A900983574 /* SignUpVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SignUpVC.swift; sourceTree = "<group>"; };
 		78F122D5282E511000983574 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		78F4DEDC283002300055639A /* MainTabVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainTabVC.swift; sourceTree = "<group>"; };
+		78F4DEE1283005870055639A /* NotificationsVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationsVC.swift; sourceTree = "<group>"; };
+		78F4DEE5283009E30055639A /* UploadPostVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UploadPostVC.swift; sourceTree = "<group>"; };
+		78F4DEE728300A130055639A /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
+		78F4DEE92830D2D50055639A /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
+		78F4DEEB2830D4250055639A /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 		A83025B2759D07E5179522BB /* Pods-Lavender.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lavender.release.xcconfig"; path = "Target Support Files/Pods-Lavender/Pods-Lavender.release.xcconfig"; sourceTree = "<group>"; };
 		F431A09245E33C5E3F3942E1 /* Pods-Lavender.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lavender.debug.xcconfig"; path = "Target Support Files/Pods-Lavender/Pods-Lavender.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -97,6 +109,12 @@
 			children = (
 				78F122CE282C176700983574 /* LoginVC.swift */,
 				78F122D3282E46A900983574 /* SignUpVC.swift */,
+				78F4DEDC283002300055639A /* MainTabVC.swift */,
+				78F4DEE1283005870055639A /* NotificationsVC.swift */,
+				78F4DEE5283009E30055639A /* UploadPostVC.swift */,
+				78F4DEE728300A130055639A /* SearchVC.swift */,
+				78F4DEE92830D2D50055639A /* FeedVC.swift */,
+				78F4DEEB2830D4250055639A /* UserProfileVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -129,7 +147,6 @@
 				F431A09245E33C5E3F3942E1 /* Pods-Lavender.debug.xcconfig */,
 				A83025B2759D07E5179522BB /* Pods-Lavender.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -250,10 +267,16 @@
 			buildActionMask = 2147483647;
 			files = (
 				78F122B8282C14E200983574 /* AppDelegate.swift in Sources */,
+				78F4DEE828300A130055639A /* SearchVC.swift in Sources */,
+				78F4DEEA2830D2D50055639A /* FeedVC.swift in Sources */,
+				78F4DEEC2830D4250055639A /* UserProfileVC.swift in Sources */,
+				78F4DEE6283009E30055639A /* UploadPostVC.swift in Sources */,
+				78F4DEDD283002300055639A /* MainTabVC.swift in Sources */,
 				78F122BA282C14E200983574 /* SceneDelegate.swift in Sources */,
 				78F122CF282C176700983574 /* LoginVC.swift in Sources */,
 				78F122D4282E46A900983574 /* SignUpVC.swift in Sources */,
 				78F122D2282C1DD800983574 /* Extensions.swift in Sources */,
+				78F4DEE2283005870055639A /* NotificationsVC.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
