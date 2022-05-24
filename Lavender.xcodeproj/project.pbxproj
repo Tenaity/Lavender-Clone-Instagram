@@ -23,6 +23,8 @@
 		78F4DEE828300A130055639A /* SearchVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F4DEE728300A130055639A /* SearchVC.swift */; };
 		78F4DEEA2830D2D50055639A /* FeedVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F4DEE92830D2D50055639A /* FeedVC.swift */; };
 		78F4DEEC2830D4250055639A /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F4DEEB2830D4250055639A /* UserProfileVC.swift */; };
+		78F4DEF62833FEDA0055639A /* UserProfileHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F4DEF52833FEDA0055639A /* UserProfileHeaderCell.swift */; };
+		78F4DEF82837CCF00055639A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F4DEF72837CCF00055639A /* User.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -44,6 +46,8 @@
 		78F4DEE728300A130055639A /* SearchVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchVC.swift; sourceTree = "<group>"; };
 		78F4DEE92830D2D50055639A /* FeedVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedVC.swift; sourceTree = "<group>"; };
 		78F4DEEB2830D4250055639A /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
+		78F4DEF52833FEDA0055639A /* UserProfileHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderCell.swift; sourceTree = "<group>"; };
+		78F4DEF72837CCF00055639A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
 		A83025B2759D07E5179522BB /* Pods-Lavender.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lavender.release.xcconfig"; path = "Target Support Files/Pods-Lavender/Pods-Lavender.release.xcconfig"; sourceTree = "<group>"; };
 		F431A09245E33C5E3F3942E1 /* Pods-Lavender.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lavender.debug.xcconfig"; path = "Target Support Files/Pods-Lavender/Pods-Lavender.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -107,14 +111,14 @@
 		78F122CB282C169300983574 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
-				78F122CE282C176700983574 /* LoginVC.swift */,
-				78F122D3282E46A900983574 /* SignUpVC.swift */,
+				78F4DEF32833FE690055639A /* Search */,
+				78F4DEF22833FE570055639A /* UploadPost */,
+				78F4DEF12833FE190055639A /* Profile */,
+				78F4DEF02833FE090055639A /* Notifications */,
+				78F4DEEF2833FDFF0055639A /* Feed */,
+				78F4DEEE2833FDF20055639A /* SignUp */,
+				78F4DEED2833FDE70055639A /* Login */,
 				78F4DEDC283002300055639A /* MainTabVC.swift */,
-				78F4DEE1283005870055639A /* NotificationsVC.swift */,
-				78F4DEE5283009E30055639A /* UploadPostVC.swift */,
-				78F4DEE728300A130055639A /* SearchVC.swift */,
-				78F4DEE92830D2D50055639A /* FeedVC.swift */,
-				78F4DEEB2830D4250055639A /* UserProfileVC.swift */,
 			);
 			path = Controller;
 			sourceTree = "<group>";
@@ -122,6 +126,7 @@
 		78F122CC282C16A100983574 /* Model */ = {
 			isa = PBXGroup;
 			children = (
+				78F4DEF72837CCF00055639A /* User.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -139,6 +144,63 @@
 				78F122D1282C1DD800983574 /* Extensions.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		78F4DEED2833FDE70055639A /* Login */ = {
+			isa = PBXGroup;
+			children = (
+				78F122CE282C176700983574 /* LoginVC.swift */,
+			);
+			path = Login;
+			sourceTree = "<group>";
+		};
+		78F4DEEE2833FDF20055639A /* SignUp */ = {
+			isa = PBXGroup;
+			children = (
+				78F122D3282E46A900983574 /* SignUpVC.swift */,
+			);
+			path = SignUp;
+			sourceTree = "<group>";
+		};
+		78F4DEEF2833FDFF0055639A /* Feed */ = {
+			isa = PBXGroup;
+			children = (
+				78F4DEE92830D2D50055639A /* FeedVC.swift */,
+			);
+			path = Feed;
+			sourceTree = "<group>";
+		};
+		78F4DEF02833FE090055639A /* Notifications */ = {
+			isa = PBXGroup;
+			children = (
+				78F4DEE1283005870055639A /* NotificationsVC.swift */,
+			);
+			path = Notifications;
+			sourceTree = "<group>";
+		};
+		78F4DEF12833FE190055639A /* Profile */ = {
+			isa = PBXGroup;
+			children = (
+				78F4DEEB2830D4250055639A /* UserProfileVC.swift */,
+				78F4DEF52833FEDA0055639A /* UserProfileHeaderCell.swift */,
+			);
+			path = Profile;
+			sourceTree = "<group>";
+		};
+		78F4DEF22833FE570055639A /* UploadPost */ = {
+			isa = PBXGroup;
+			children = (
+				78F4DEE5283009E30055639A /* UploadPostVC.swift */,
+			);
+			path = UploadPost;
+			sourceTree = "<group>";
+		};
+		78F4DEF32833FE690055639A /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				78F4DEE728300A130055639A /* SearchVC.swift */,
+			);
+			path = Search;
 			sourceTree = "<group>";
 		};
 		FC5D02D39016896F4B332D1D /* Pods */ = {
@@ -266,6 +328,8 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				78F4DEF82837CCF00055639A /* User.swift in Sources */,
+				78F4DEF62833FEDA0055639A /* UserProfileHeaderCell.swift in Sources */,
 				78F122B8282C14E200983574 /* AppDelegate.swift in Sources */,
 				78F4DEE828300A130055639A /* SearchVC.swift in Sources */,
 				78F4DEEA2830D2D50055639A /* FeedVC.swift in Sources */,
