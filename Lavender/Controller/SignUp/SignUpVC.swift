@@ -90,7 +90,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             let email = emailTextField.text,
             let password = passwordTextField.text,
             let fullName = fullNameTextField.text,
-            let username = userNameTextField.text
+            let username = userNameTextField.text?.lowercased()
         else { return }
         
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in

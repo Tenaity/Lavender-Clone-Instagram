@@ -25,6 +25,7 @@
 		78F4DEEC2830D4250055639A /* UserProfileVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F4DEEB2830D4250055639A /* UserProfileVC.swift */; };
 		78F4DEF62833FEDA0055639A /* UserProfileHeaderCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F4DEF52833FEDA0055639A /* UserProfileHeaderCell.swift */; };
 		78F4DEF82837CCF00055639A /* User.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F4DEF72837CCF00055639A /* User.swift */; };
+		78F4DEFC283E9EFD0055639A /* SearchTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F4DEFB283E9EFC0055639A /* SearchTableViewCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -48,6 +49,7 @@
 		78F4DEEB2830D4250055639A /* UserProfileVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileVC.swift; sourceTree = "<group>"; };
 		78F4DEF52833FEDA0055639A /* UserProfileHeaderCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserProfileHeaderCell.swift; sourceTree = "<group>"; };
 		78F4DEF72837CCF00055639A /* User.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = User.swift; sourceTree = "<group>"; };
+		78F4DEFB283E9EFC0055639A /* SearchTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTableViewCell.swift; sourceTree = "<group>"; };
 		A83025B2759D07E5179522BB /* Pods-Lavender.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lavender.release.xcconfig"; path = "Target Support Files/Pods-Lavender/Pods-Lavender.release.xcconfig"; sourceTree = "<group>"; };
 		F431A09245E33C5E3F3942E1 /* Pods-Lavender.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Lavender.debug.xcconfig"; path = "Target Support Files/Pods-Lavender/Pods-Lavender.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -199,6 +201,7 @@
 			isa = PBXGroup;
 			children = (
 				78F4DEE728300A130055639A /* SearchVC.swift */,
+				78F4DEFB283E9EFC0055639A /* SearchTableViewCell.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -341,6 +344,7 @@
 				78F122D4282E46A900983574 /* SignUpVC.swift in Sources */,
 				78F122D2282C1DD800983574 /* Extensions.swift in Sources */,
 				78F4DEE2283005870055639A /* NotificationsVC.swift in Sources */,
+				78F4DEFC283E9EFD0055639A /* SearchTableViewCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
