@@ -15,7 +15,8 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     
     // MARK: Properties
     
-    var user: User?
+    var currentUser: User?
+    var userToLoadFromSearchVC: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -24,10 +25,10 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         self.collectionView.register(UserProfileHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
         // backgound color
         self.collectionView?.backgroundColor = .white
-        // fetch user data
-        fetchCurrentUserData()
-        //
         
+        if userToLoadFromSearchVC == nil {
+            fetchCurrentUserData()
+        }
     }
     
     // MARK: UICollectionView
@@ -59,21 +60,27 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         // declare header
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! UserProfileHeaderCell
         // set the user in header
-        let currentUid = Auth.auth().currentUser?.uid
-        Database.database().reference().child("users").child(currentUid!).observeSingleEvent(of: .value, with: { (snapshot) in
-            guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
-            let uid = snapshot.key
-            let user = User(uid: uid, dictionary: dictionary)
-            self.navigationItem.title = user.username
+        if let user = self.currentUser {
             header.user = user
-        } )
+        } else if let user = userToLoadFromSearchVC {
+            header.user = user
+            navigationItem.title = user.username
+        }
         return header
     }
     
     // MARK: API
     
     func fetchCurrentUserData() {
-
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        Database.database().reference().child("users").child(currentUid).observeSingleEvent(of: .value, with: { (snapshot) in
+            guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
+            let uid = snapshot.key
+            let user = User(uid: uid, dictionary: dictionary)
+            self.currentUser = user
+            self.navigationItem.title = user.username
+            self.collectionView.reloadData()
+        } )
     }
     
 }

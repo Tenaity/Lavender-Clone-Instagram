@@ -6,11 +6,14 @@
 //
 
 import UIKit
+import Firebase
 
 class UserProfileHeaderCell: UICollectionViewCell {
     
     var user: User? {
         didSet {
+            configureEditProfileFollowButton()
+            setUserStats(for: user)
             let fullname = user?.name
             nameLabel.text = fullname
             guard let profileImageUrl = user?.profileImage else { return }
@@ -46,9 +49,6 @@ class UserProfileHeaderCell: UICollectionViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
-        let attributedText = NSMutableAttributedString(string: "5\n", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14)])
-        attributedText.append(NSAttributedString(string: "followers", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
-        label.attributedText = attributedText
         return label
     }()
     
@@ -56,20 +56,18 @@ class UserProfileHeaderCell: UICollectionViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
-        let attributedText = NSMutableAttributedString(string: "5\n", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14)])
-        attributedText.append(NSAttributedString(string: "following", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
-        label.attributedText = attributedText
         return label
     }()
     
-    let editProfileButton: UIButton = {
+    lazy var editProfileFollowButton: UIButton = {
         let button = UIButton(type: .system)
-        button.setTitle("Edit Profile", for: .normal)
+        button.setTitle("Loading", for: .normal)
         button.layer.cornerRadius = 5
         button.layer.borderColor = UIColor.lightGray.cgColor
         button.layer.borderWidth = 0.5
         button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
         button.setTitleColor(.black, for: .normal)
+        button.addTarget(self, action: #selector(handleEditProfileFollow), for: .touchUpInside)
         return button
     }()
     
@@ -120,8 +118,8 @@ class UserProfileHeaderCell: UICollectionViewCell {
         profileImageView.layer.cornerRadius = 80/2
         nameLabel.anchor(top: profileImageView.bottomAnchor, left: self.leftAnchor, bottom: nil, right: nil, paddingTop: 12, paddingLeft: 12, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         configUserStats()
-        addSubview(editProfileButton)
-        editProfileButton.anchor(top: postLabel.bottomAnchor, left: postLabel.leftAnchor, bottom: nil, right: self.rightAnchor, paddingTop: 12, paddingLeft: 0, paddingBottom: 0, paddingRight: 12, width: 0, height: 30)
+        addSubview(editProfileFollowButton)
+        editProfileFollowButton.anchor(top: postLabel.bottomAnchor, left: postLabel.leftAnchor, bottom: nil, right: self.rightAnchor, paddingTop: 12, paddingLeft: 0, paddingBottom: 0, paddingRight: 12, width: 0, height: 30)
         configButtonToolBar()
     }
     
@@ -131,6 +129,83 @@ class UserProfileHeaderCell: UICollectionViewCell {
         stackView.distribution = .fillEqually
         addSubview(stackView)
         stackView.anchor(top: self.topAnchor, left: profileImageView.rightAnchor, bottom: nil, right: self.rightAnchor, paddingTop: 12, paddingLeft: 12, paddingBottom: 0, paddingRight: 12, width: 0, height: 50)
+    }
+    
+    func setUserStats(for user: User?) {
+        
+        guard let uid = user?.uid else { return }
+        
+        var numberOfFollowers: Int!
+        var numberOfFollowing: Int!
+        
+        // get number of followers
+        USER_FOLLOWER_REF.child(uid).observeSingleEvent(of: .value) { snapshot in
+            if let snapshot = snapshot.value as? Dictionary<String, AnyObject> {
+                numberOfFollowers = snapshot.count
+            } else {
+                numberOfFollowers = 0
+            }
+            
+            let attributedText = NSMutableAttributedString(string: "\(String(describing: numberOfFollowers!))\n", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14)])
+            attributedText.append(NSAttributedString(string: "followers", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
+            self.followersLabel.attributedText = attributedText
+        }
+        
+        // get number of following
+        USER_FOLLOWING_REF.child(uid).observeSingleEvent(of: .value) { snapshot in
+            if let snapshot = snapshot.value as? Dictionary<String, AnyObject> {
+                numberOfFollowing = snapshot.count
+            } else {
+                numberOfFollowing = 0
+            }
+            let attributedText = NSMutableAttributedString(string: "\(String(describing: numberOfFollowing!))\n", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14)])
+            attributedText.append(NSAttributedString(string: "followers", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
+            self.followingLabel.attributedText = attributedText
+        }
+    }
+    
+    func configureEditProfileFollowButton() {
+       guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        guard let user = self.user else { return }
+        if currentUid == user.uid {
+            // config button as edit profile
+            editProfileFollowButton.setTitle("Edit Profile", for: .normal)
+        } else {
+            
+            user.checkIfUserIsFollowed(completion: { followed in
+                if followed {
+                    self.editProfileFollowButton.setTitle("Following", for: .normal)
+                } else {
+                    self.editProfileFollowButton.setTitle("Follow", for: .normal)
+                }
+            })
+            
+           // config button as follow button
+            editProfileFollowButton.setTitleColor(.white, for: .normal)
+            editProfileFollowButton.backgroundColor = UIColor(red: 17/255, green: 154/255, blue: 237/255, alpha: 1)
+        }
+    }
+    
+    @objc func handleEditProfileFollow(){
+        guard let user = self.user else { return }
+     
+        if editProfileFollowButton.titleLabel?.text == "Edit Profile" {
+            print("handle edit profile")
+            
+            // create EditProfileVC ->
+            
+        }
+        else {
+            user.checkIfUserIsFollowed(completion: { followed in
+                if followed {
+                    self.editProfileFollowButton.setTitle("Follow", for: .normal)
+                    user.unfollow()
+                } else {
+                    self.editProfileFollowButton.setTitle("Following", for: .normal)
+                    user.follow()
+                }
+            })
+        }
     }
     
     required init?(coder: NSCoder) {
