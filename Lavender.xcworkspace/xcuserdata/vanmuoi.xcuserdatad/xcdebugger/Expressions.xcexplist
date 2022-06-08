@@ -16,5 +16,13 @@
             </PersistentString>
          </PersistentStrings>
       </ContextState>
+      <ContextState
+         contextName = "FollowVC.handleFollowTapped(for:):FollowVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "user.isFollowed">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
    </ContextStates>
 </VariablesViewState>
