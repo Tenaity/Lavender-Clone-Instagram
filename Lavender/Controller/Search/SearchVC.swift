@@ -26,6 +26,9 @@ class SearchVC: UITableViewController {
         
         configNavController()
         fetchUser()
+        
+        // clear separator tableview
+        tableView.separatorColor = .clear
     }
     
     
@@ -47,7 +50,7 @@ class SearchVC: UITableViewController {
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let user = users[indexPath.row]
         let userProfileVC = UserProfileVC(collectionViewLayout: UICollectionViewFlowLayout())
-        userProfileVC.userToLoadFromSearchVC = user
+        userProfileVC.user = user
         navigationController?.pushViewController(userProfileVC, animated: true)
     }
     
@@ -70,14 +73,10 @@ class SearchVC: UITableViewController {
             // uuid
             let uid = snapshot.key
             
-            // snapshot value cast as dictionary
-            guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
-            // construct user
-            let user = User(uid: uid, dictionary: dictionary)
-            // append user to datasource
-            self.users.append(user)
-            //
-            self.tableView.reloadData()
+            Database.fetchUser(with: uid, completion: { user in
+                self.users.append(user)
+                self.tableView.reloadData()
+            })
         }
     }
     

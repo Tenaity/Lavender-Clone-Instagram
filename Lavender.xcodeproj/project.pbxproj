@@ -8,6 +8,9 @@
 
 /* Begin PBXBuildFile section */
 		6C8269AABFBED264B26DBE6A /* Pods_Lavender.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2926D9B0DE5614D19D3CDB4D /* Pods_Lavender.framework */; };
+		78104F47284A449C000A9042 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78104F46284A449C000A9042 /* Protocols.swift */; };
+		78104F49284B479F000A9042 /* FollowVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78104F48284B479F000A9042 /* FollowVC.swift */; };
+		78104F4D284B492A000A9042 /* FollowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78104F4C284B492A000A9042 /* FollowCell.swift */; };
 		78F122B8282C14E200983574 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F122B7282C14E200983574 /* AppDelegate.swift */; };
 		78F122BA282C14E200983574 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F122B9282C14E200983574 /* SceneDelegate.swift */; };
 		78F122BF282C14E200983574 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78F122BD282C14E200983574 /* Main.storyboard */; };
@@ -31,6 +34,9 @@
 
 /* Begin PBXFileReference section */
 		2926D9B0DE5614D19D3CDB4D /* Pods_Lavender.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lavender.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		78104F46284A449C000A9042 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
+		78104F48284B479F000A9042 /* FollowVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowVC.swift; sourceTree = "<group>"; };
+		78104F4C284B492A000A9042 /* FollowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowCell.swift; sourceTree = "<group>"; };
 		78F122B4282C14E200983574 /* Lavender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lavender.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78F122B7282C14E200983574 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78F122B9282C14E200983574 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -147,6 +153,7 @@
 			children = (
 				78F122D1282C1DD800983574 /* Extensions.swift */,
 				78F4DEFD2841EA4F0055639A /* Constants.swift */,
+				78104F46284A449C000A9042 /* Protocols.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -188,6 +195,8 @@
 			children = (
 				78F4DEEB2830D4250055639A /* UserProfileVC.swift */,
 				78F4DEF52833FEDA0055639A /* UserProfileHeaderCell.swift */,
+				78104F48284B479F000A9042 /* FollowVC.swift */,
+				78104F4C284B492A000A9042 /* FollowCell.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -344,11 +353,14 @@
 				78F4DEE6283009E30055639A /* UploadPostVC.swift in Sources */,
 				78F4DEDD283002300055639A /* MainTabVC.swift in Sources */,
 				78F122BA282C14E200983574 /* SceneDelegate.swift in Sources */,
+				78104F4D284B492A000A9042 /* FollowCell.swift in Sources */,
 				78F122CF282C176700983574 /* LoginVC.swift in Sources */,
 				78F122D4282E46A900983574 /* SignUpVC.swift in Sources */,
 				78F122D2282C1DD800983574 /* Extensions.swift in Sources */,
+				78104F49284B479F000A9042 /* FollowVC.swift in Sources */,
 				78F4DEE2283005870055639A /* NotificationsVC.swift in Sources */,
 				78F4DEFC283E9EFD0055639A /* SearchTableViewCell.swift in Sources */,
+				78104F47284A449C000A9042 /* Protocols.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

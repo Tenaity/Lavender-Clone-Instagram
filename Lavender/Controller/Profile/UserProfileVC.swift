@@ -12,11 +12,10 @@ private let reuseIdentifier = "Cell"
 private let headerIdentifier = "UserProfileHeader"
 
 class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLayout {
-    
+
     // MARK: Properties
     
-    var currentUser: User?
-    var userToLoadFromSearchVC: User?
+    var user: User?
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -26,7 +25,7 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         // backgound color
         self.collectionView?.backgroundColor = .white
         
-        if userToLoadFromSearchVC == nil {
+        if user == nil {
             fetchCurrentUserData()
         }
     }
@@ -59,13 +58,13 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     override func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
         // declare header
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! UserProfileHeaderCell
+        // set delegate
+        header.delegate = self
+        
         // set the user in header
-        if let user = self.currentUser {
-            header.user = user
-        } else if let user = userToLoadFromSearchVC {
-            header.user = user
-            navigationItem.title = user.username
-        }
+        header.user = user
+        navigationItem.title = user?.username
+        
         return header
     }
     
@@ -77,10 +76,80 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
             guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
             let uid = snapshot.key
             let user = User(uid: uid, dictionary: dictionary)
-            self.currentUser = user
+            self.user = user
             self.navigationItem.title = user.username
             self.collectionView.reloadData()
         } )
+    }
+    
+}
+
+extension UserProfileVC: UserProfileHeaderDelegate {
+    func handleFollowersTapped(for header: UserProfileHeaderCell) {
+        let vc = FollowVC()
+        vc.viewFollowers = true
+        vc.uid = user?.uid
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func handleFollowingTapped(for header: UserProfileHeaderCell) {
+        let vc = FollowVC()
+        vc.uid = user?.uid
+        navigationController?.pushViewController(vc, animated: true)
+    }
+    
+    func setUserStats(for header: UserProfileHeaderCell) {
+        guard let uid = header.user?.uid else { return }
+        var numberOfFollowers: Int!
+        var numberOfFollowing: Int!
+        
+        // get number of followers
+        USER_FOLLOWER_REF.child(uid).observe(.value) { snapshot in
+            if let snapshot = snapshot.value as? Dictionary<String, AnyObject> {
+                numberOfFollowers = snapshot.count
+            } else {
+                numberOfFollowers = 0
+            }
+            
+            let attributedText = NSMutableAttributedString(string: "\(String(describing: numberOfFollowers!))\n", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14)])
+            attributedText.append(NSAttributedString(string: "followers", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
+            header.followersLabel.attributedText = attributedText
+        }
+        
+        // get number of following
+        USER_FOLLOWING_REF.child(uid).observe(.value) { snapshot in
+            if let snapshot = snapshot.value as? Dictionary<String, AnyObject> {
+                numberOfFollowing = snapshot.count
+            } else {
+                numberOfFollowing = 0
+            }
+            let attributedText = NSMutableAttributedString(string: "\(String(describing: numberOfFollowing!))\n", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14)])
+            attributedText.append(NSAttributedString(string: "followers", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
+            header.followingLabel.attributedText = attributedText
+        }
+    }
+    
+    
+    func handleEditFollowTapped(for header: UserProfileHeaderCell) {
+        guard let user = header.user else { return }
+
+        if header.editProfileFollowButton.titleLabel?.text == "Edit Profile" {
+            print("handle edit profile")
+
+            // create EditProfileVC ->
+
+        }
+        else {
+            user.checkIfUserIsFollowed(completion: { followed in
+                if followed {
+                    header.editProfileFollowButton.setTitle("Following", for: .normal)
+                    user.unfollow()
+                } else {
+                    header.editProfileFollowButton.setTitle("Follow", for: .normal)
+                    user.follow()
+                }
+            })
+        }
     }
     
 }

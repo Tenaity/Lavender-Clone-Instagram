@@ -10,6 +10,8 @@ import Firebase
 
 class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
+    // MARK: Properties
+    
     var imageSelected: Bool = false
     
     let plusPhotoBtn: UIButton = {
@@ -79,6 +81,8 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         button.addTarget(self, action: #selector(handleShowSignUp), for: .touchUpInside)
         return button
     }()
+    
+    // MARK: Handlers
     
     @objc func handleShowSignUp() {
         navigationController?.popViewController(animated: true)
@@ -186,6 +190,8 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         plusPhotoBtn.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
         self.dismiss(animated: true, completion: nil)
     }
+    
+    // MARK: Init
     
     override func viewDidLoad() {
         super.viewDidLoad()
