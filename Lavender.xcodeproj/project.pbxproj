@@ -11,6 +11,12 @@
 		78104F47284A449C000A9042 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78104F46284A449C000A9042 /* Protocols.swift */; };
 		78104F49284B479F000A9042 /* FollowVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78104F48284B479F000A9042 /* FollowVC.swift */; };
 		78104F4D284B492A000A9042 /* FollowCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78104F4C284B492A000A9042 /* FollowCell.swift */; };
+		78DEA87028548B6E006DE4EF /* SelectImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DEA86F28548B6D006DE4EF /* SelectImageVC.swift */; };
+		78DEA87428548E59006DE4EF /* SelectPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DEA87328548E59006DE4EF /* SelectPhotoCell.swift */; };
+		78DEA87828548EBF006DE4EF /* SelectPhotoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DEA87728548EBF006DE4EF /* SelectPhotoHeader.swift */; };
+		78DEA87A28578230006DE4EF /* Post.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DEA87928578230006DE4EF /* Post.swift */; };
+		78DEA87C2859D22F006DE4EF /* UserPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DEA87B2859D22F006DE4EF /* UserPostCell.swift */; };
+		78DEA87F2859EB74006DE4EF /* CustomImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DEA87E2859EB74006DE4EF /* CustomImageView.swift */; };
 		78F122B8282C14E200983574 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F122B7282C14E200983574 /* AppDelegate.swift */; };
 		78F122BA282C14E200983574 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78F122B9282C14E200983574 /* SceneDelegate.swift */; };
 		78F122BF282C14E200983574 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 78F122BD282C14E200983574 /* Main.storyboard */; };
@@ -37,6 +43,12 @@
 		78104F46284A449C000A9042 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		78104F48284B479F000A9042 /* FollowVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowVC.swift; sourceTree = "<group>"; };
 		78104F4C284B492A000A9042 /* FollowCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowCell.swift; sourceTree = "<group>"; };
+		78DEA86F28548B6D006DE4EF /* SelectImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageVC.swift; sourceTree = "<group>"; };
+		78DEA87328548E59006DE4EF /* SelectPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotoCell.swift; sourceTree = "<group>"; };
+		78DEA87728548EBF006DE4EF /* SelectPhotoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotoHeader.swift; sourceTree = "<group>"; };
+		78DEA87928578230006DE4EF /* Post.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Post.swift; sourceTree = "<group>"; };
+		78DEA87B2859D22F006DE4EF /* UserPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserPostCell.swift; sourceTree = "<group>"; };
+		78DEA87E2859EB74006DE4EF /* CustomImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CustomImageView.swift; sourceTree = "<group>"; };
 		78F122B4282C14E200983574 /* Lavender.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Lavender.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		78F122B7282C14E200983574 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		78F122B9282C14E200983574 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -137,6 +149,7 @@
 			isa = PBXGroup;
 			children = (
 				78F4DEF72837CCF00055639A /* User.swift */,
+				78DEA87928578230006DE4EF /* Post.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -144,6 +157,7 @@
 		78F122CD282C16AC00983574 /* View */ = {
 			isa = PBXGroup;
 			children = (
+				78DEA87B2859D22F006DE4EF /* UserPostCell.swift */,
 			);
 			path = View;
 			sourceTree = "<group>";
@@ -154,6 +168,7 @@
 				78F122D1282C1DD800983574 /* Extensions.swift */,
 				78F4DEFD2841EA4F0055639A /* Constants.swift */,
 				78104F46284A449C000A9042 /* Protocols.swift */,
+				78DEA87E2859EB74006DE4EF /* CustomImageView.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -205,6 +220,9 @@
 			isa = PBXGroup;
 			children = (
 				78F4DEE5283009E30055639A /* UploadPostVC.swift */,
+				78DEA86F28548B6D006DE4EF /* SelectImageVC.swift */,
+				78DEA87328548E59006DE4EF /* SelectPhotoCell.swift */,
+				78DEA87728548EBF006DE4EF /* SelectPhotoHeader.swift */,
 			);
 			path = UploadPost;
 			sourceTree = "<group>";
@@ -344,6 +362,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				78F4DEF82837CCF00055639A /* User.swift in Sources */,
+				78DEA87F2859EB74006DE4EF /* CustomImageView.swift in Sources */,
+				78DEA87A28578230006DE4EF /* Post.swift in Sources */,
 				78F4DEF62833FEDA0055639A /* UserProfileHeaderCell.swift in Sources */,
 				78F122B8282C14E200983574 /* AppDelegate.swift in Sources */,
 				78F4DEE828300A130055639A /* SearchVC.swift in Sources */,
@@ -355,11 +375,15 @@
 				78F122BA282C14E200983574 /* SceneDelegate.swift in Sources */,
 				78104F4D284B492A000A9042 /* FollowCell.swift in Sources */,
 				78F122CF282C176700983574 /* LoginVC.swift in Sources */,
+				78DEA87C2859D22F006DE4EF /* UserPostCell.swift in Sources */,
 				78F122D4282E46A900983574 /* SignUpVC.swift in Sources */,
+				78DEA87028548B6E006DE4EF /* SelectImageVC.swift in Sources */,
+				78DEA87828548EBF006DE4EF /* SelectPhotoHeader.swift in Sources */,
 				78F122D2282C1DD800983574 /* Extensions.swift in Sources */,
 				78104F49284B479F000A9042 /* FollowVC.swift in Sources */,
 				78F4DEE2283005870055639A /* NotificationsVC.swift in Sources */,
 				78F4DEFC283E9EFD0055639A /* SearchTableViewCell.swift in Sources */,
+				78DEA87428548E59006DE4EF /* SelectPhotoCell.swift in Sources */,
 				78104F47284A449C000A9042 /* Protocols.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
