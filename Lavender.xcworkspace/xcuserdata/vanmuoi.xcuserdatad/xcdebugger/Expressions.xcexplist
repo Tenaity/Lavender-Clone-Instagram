@@ -3,6 +3,20 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "closure #2 in closure #1 in UserProfileVC.fetchPosts():UserProfileVC.swift">
+      </ContextState>
+      <ContextState
+         contextName = "FollowVC.handleFollowTapped(for:):FollowVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "user.isFollowed">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "FeedCell.init(frame:):FeedCell.swift">
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in closure #1 in SignUpVC.handleSignUp():SignUpVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -17,10 +31,16 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "FollowVC.handleFollowTapped(for:):FollowVC.swift">
+         contextName = "closure #1 in closure #1 in closure #1 in UserProfileVC.fetchPosts():UserProfileVC.swift">
+      </ContextState>
+      <ContextState
+         contextName = "FeedVC.collectionView(_:cellForItemAt:):FeedVC.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Post.adjustLike(addLike:):Post.swift">
          <PersistentStrings>
             <PersistentString
-               value = "user.isFollowed">
+               value = "likes">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

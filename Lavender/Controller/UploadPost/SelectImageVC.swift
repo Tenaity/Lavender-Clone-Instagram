@@ -144,12 +144,8 @@ class SelectImageVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         // fetch images on background thread
         DispatchQueue.global(qos: .background).async {
             
-            print("----> Fetching photos")
-            
             // enumerate objects
             allPhotos.enumerateObjects({ (asset, count, stop) in
-                
-                print("----> count \(count)")
                 
                 let imageManager = PHImageManager.default()
                 let targetSize = CGSize(width: 200, height: 200)

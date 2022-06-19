@@ -54,10 +54,6 @@ class UserProfileHeaderCell: UICollectionViewCell {
         label.numberOfLines = 0
         label.textAlignment = .center
         
-        let attributedText = NSMutableAttributedString(string: "\n", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14)])
-        attributedText.append(NSAttributedString(string: "followers", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
-        label.attributedText = attributedText
-        
         // add tap gesture recognize
         let followersTapped = UITapGestureRecognizer(target: self, action: #selector(handleFollowersTapped))
         followersTapped.numberOfTapsRequired = 1
@@ -70,10 +66,6 @@ class UserProfileHeaderCell: UICollectionViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
-        
-        let attributedText = NSMutableAttributedString(string: "\n", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14)])
-        attributedText.append(NSAttributedString(string: "following", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
-        label.attributedText = attributedText
         
         // add tap gesture recognize
         let followingTapped = UITapGestureRecognizer(target: self, action: #selector(handleFollowingTapped))

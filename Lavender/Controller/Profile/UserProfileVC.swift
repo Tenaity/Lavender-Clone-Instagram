@@ -67,6 +67,13 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         return posts.count
     }
     
+    override func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let feedVC = FeedVC(collectionViewLayout: UICollectionViewFlowLayout())
+        feedVC.viewSinglePost = true
+        feedVC.post = posts[indexPath.row]
+        navigationController?.pushViewController(feedVC, animated: true)
+    }
+    
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! UserPostCell
         cell.post = posts[indexPath.row]
@@ -102,16 +109,14 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
             
             let postId = snapshot.key
             
-            POSTS_REF.child(postId).observeSingleEvent(of: .value, with: { snapshot in
-                print(snapshot)
-                guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
-                let post = Post(postId: postId, dictionary: dictionary)
+            Database.fetchPost(with: postId, completion: { post in
                 self.posts.append(post)
                 self.posts.sort(by: { (post1, post2) -> Bool in
                     return post1.creationDate > post2.creationDate
                 })
                 self.collectionView.reloadData()
             })
+
         }
     }
     
@@ -131,14 +136,15 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
 
 extension UserProfileVC: UserProfileHeaderDelegate {
     func handleFollowersTapped(for header: UserProfileHeaderCell) {
-        let vc = FollowVC()
-        vc.viewFollowers = true
+        let vc = FollowLikeVC()
+        vc.viewingMode = FollowLikeVC.ViewingMode.init(index: 1)
         vc.uid = user?.uid
         navigationController?.pushViewController(vc, animated: true)
     }
     
     func handleFollowingTapped(for header: UserProfileHeaderCell) {
-        let vc = FollowVC()
+        let vc = FollowLikeVC()
+        vc.viewingMode = FollowLikeVC.ViewingMode.init(index: 0)
         vc.uid = user?.uid
         navigationController?.pushViewController(vc, animated: true)
     }
@@ -169,7 +175,7 @@ extension UserProfileVC: UserProfileHeaderDelegate {
                 numberOfFollowing = 0
             }
             let attributedText = NSMutableAttributedString(string: "\(String(describing: numberOfFollowing!))\n", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14)])
-            attributedText.append(NSAttributedString(string: "followers", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
+            attributedText.append(NSAttributedString(string: "following", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
             header.followingLabel.attributedText = attributedText
         }
     }
@@ -180,17 +186,14 @@ extension UserProfileVC: UserProfileHeaderDelegate {
 
         if header.editProfileFollowButton.titleLabel?.text == "Edit Profile" {
             print("handle edit profile")
-
-            // create EditProfileVC ->
-
         }
         else {
             user.checkIfUserIsFollowed(completion: { followed in
                 if followed {
-                    header.editProfileFollowButton.setTitle("Following", for: .normal)
+                    header.editProfileFollowButton.setTitle("Follow", for: .normal)
                     user.unfollow()
                 } else {
-                    header.editProfileFollowButton.setTitle("Follow", for: .normal)
+                    header.editProfileFollowButton.setTitle("Following", for: .normal)
                     user.follow()
                 }
             })
