@@ -38,7 +38,6 @@ class CustomImageView: UIImageView {
             }
             
             if self.lastImgUrlUsedToLoadImage != url.absoluteString {
-                print("----> If block excuted")
                 return 
             }
             
