@@ -16,7 +16,7 @@ class CommentVC: UICollectionViewController, UICollectionViewDelegateFlowLayout 
     // MARK: Properties
     
     var comments = [Comment]()
-    var postId: String?
+    var post: Post?
     
     lazy var containerView: UIView = {
         let containerView = UIView()
@@ -113,10 +113,7 @@ class CommentVC: UICollectionViewController, UICollectionViewDelegateFlowLayout 
         let height = max(40 + 8 + 8, estimatedSize.height)
         return CGSize(width: view.frame.width, height: height)
         
-        
-        
-        
-        return CGSize(width: collectionView.frame.width, height: 50)
+//        return CGSize(width: collectionView.frame.width, height: 50)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
@@ -136,7 +133,7 @@ class CommentVC: UICollectionViewController, UICollectionViewDelegateFlowLayout 
     // MARK: Handler
     
     @objc func handleUploadComment() {
-        guard let postId = postId,
+        guard let postId = self.post?.postId,
               let commentText = commentTextField.text,
               let uid = Auth.auth().currentUser?.uid else { return }
         let creationDate = Int(NSDate().timeIntervalSince1970)
@@ -146,6 +143,7 @@ class CommentVC: UICollectionViewController, UICollectionViewDelegateFlowLayout 
                       "uid": uid] as [String : Any]
         
         COMMENT_REF.child(postId).childByAutoId().updateChildValues(values) { (err, ref) in
+            self.uploadCommentNotificationToServer()
             self.commentTextField.text = nil
         }
     }
@@ -153,7 +151,7 @@ class CommentVC: UICollectionViewController, UICollectionViewDelegateFlowLayout 
     // MARK: API
     
     func fetchComments() {
-        guard let postId = self.postId else { return }
+        guard let postId = self.post?.postId else { return }
         
         COMMENT_REF.child(postId).observe(.childAdded) { snapshot in
             
@@ -166,6 +164,27 @@ class CommentVC: UICollectionViewController, UICollectionViewDelegateFlowLayout 
                 self.comments.append(comment)
                 self.collectionView.reloadData()
             })
+        }
+    }
+    
+    func uploadCommentNotificationToServer() {
+        guard let currentUid = Auth.auth().currentUser?.uid,
+        let post = self.post,
+        let postId = post.postId,
+        let uid = post.ownerUid else { return }
+        
+        let creationDate = Int(NSDate().timeIntervalSince1970)
+        
+        // notification value
+        let values = ["checked": 0,
+                      "creationDate": creationDate,
+                      "uid": currentUid,
+                      "type": COMMENT_INT_VALUE,
+                      "postId": postId] as [String: Any]
+        
+        // upload commment notification to server
+        if uid != currentUid {
+            NOTIFICATIONS_REF.child(uid).childByAutoId().updateChildValues(values)
         }
     }
 }

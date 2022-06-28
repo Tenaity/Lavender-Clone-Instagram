@@ -10,11 +10,18 @@ import Firebase
 
 private let reuseIdentifier = "SearchUserCell"
 
-class SearchVC: UITableViewController {
+class SearchVC: UITableViewController, UISearchBarDelegate, UICollectionViewDelegate, UICollectionViewDataSource, UICollectionViewDelegateFlowLayout {
     
     // MARK: Properties
     
     var users = [User]()
+    var searchBar = UISearchBar()
+    var filteredUsers = [User]()
+    var inSearchMode = false
+    var collectionView: UICollectionView!
+    var collectionViewEnabled = true
+    var posts = [Post]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -25,7 +32,14 @@ class SearchVC: UITableViewController {
         tableView.separatorInset = UIEdgeInsets(top: 0, left: 64, bottom: 0, right: 0)
         
         configNavController()
-        fetchUser()
+        
+        fetchUsers()
+        
+        fetchPosts()
+        
+        configSearchBar()
+        
+        configCollectionView()
         
         // clear separator tableview
         tableView.separatorColor = .clear
@@ -44,19 +58,34 @@ class SearchVC: UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return users.count
+        if inSearchMode {
+            return filteredUsers.count
+        } else {
+            return users.count
+        }
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let user = users[indexPath.row]
         let userProfileVC = UserProfileVC(collectionViewLayout: UICollectionViewFlowLayout())
-        userProfileVC.user = user
+        
+        if inSearchMode {
+            userProfileVC.user = filteredUsers[indexPath.row]
+        } else {
+            userProfileVC.user = users[indexPath.row]
+        }
+
         navigationController?.pushViewController(userProfileVC, animated: true)
     }
     
     override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: reuseIdentifier, for: indexPath) as! SearchTableViewCell
-        cell.user = users[indexPath.row]
+
+        if inSearchMode {
+            cell.user = filteredUsers[indexPath.row]
+        } else {
+            cell.user = users[indexPath.row]
+        }
+        
         return cell
     }
     
@@ -66,9 +95,107 @@ class SearchVC: UITableViewController {
         navigationItem.title = "Explore"
     }
     
+    func configSearchBar() {
+        searchBar.sizeToFit()
+        searchBar.delegate = self
+        navigationItem.titleView = searchBar
+        searchBar.barTintColor = UIColor(red: 240/255, green: 240/255, blue: 240/255, alpha: 1)
+        searchBar.tintColor = .black
+    }
+    
+    // MARK: UICollectionView
+    
+    func configCollectionView() {
+        
+        let layout = UICollectionViewFlowLayout()
+        
+        layout.scrollDirection = .vertical
+        
+        let screenSize: CGRect = UIScreen.main.bounds
+        let screenWidth = screenSize.width
+        let screenHeight = screenSize.height
+        
+        let frame = CGRect(x: 0, y: 0, width: screenWidth, height: screenHeight - (tabBarController?.tabBar.frame.height)! - (navigationController?.navigationBar.frame.height)!)
+
+        
+        collectionView = UICollectionView(frame: frame, collectionViewLayout: layout)
+        collectionView.delegate = self
+        collectionView.dataSource = self
+        collectionView.alwaysBounceVertical = true
+        collectionView.backgroundColor = .white
+        collectionView.register(SearchPostCell.self, forCellWithReuseIdentifier: "SearchPostCell")
+        tableView.addSubview(collectionView)
+        
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+        let width = (view.frame.width - 2) / 3
+        return CGSize(width: width, height: width)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        return 1
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return posts.count
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let feedVC = FeedVC(collectionViewLayout: UICollectionViewFlowLayout())
+        feedVC.viewSinglePost = true
+        feedVC.post = posts[indexPath.row]
+        navigationController?.pushViewController(feedVC, animated: true)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "SearchPostCell", for: indexPath) as! SearchPostCell
+        cell.post = posts[indexPath.row]
+        return cell
+    }
+    
+    // MARK: UISearchBar
+    
+    func searchBarTextDidBeginEditing(_ searchBar: UISearchBar) {
+        searchBar.showsCancelButton = true
+        collectionView.isHidden = true
+        collectionViewEnabled = false
+    }
+    
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        let searchText = searchText.lowercased()
+        
+        if searchText.isEmpty {
+            inSearchMode = false
+            tableView.reloadData()
+        } else {
+            inSearchMode = true
+            filteredUsers = users.filter({ user -> Bool in
+                return user.username.contains(searchText) || user.name.contains(searchText)
+            })
+            tableView.reloadData()
+        }
+    }
+    
+    func searchBarCancelButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.endEditing(true)
+        searchBar.showsCancelButton = false
+        searchBar.text = nil
+        inSearchMode = false
+        
+        collectionViewEnabled = true
+        collectionView.isHidden = false
+        tableView.separatorColor = .clear
+        tableView.reloadData()
+    }
+    
     // MARK: API
     
-    func fetchUser() {
+    func fetchUsers() {
         Database.database().reference().child("users").observe(.childAdded) { (snapshot) in
             // uuid
             let uid = snapshot.key
@@ -80,6 +207,16 @@ class SearchVC: UITableViewController {
         }
     }
     
-    
-    
+    func fetchPosts() {
+        posts.removeAll()
+        
+        POSTS_REF.observe(.childAdded) { snapshot in
+            let postId = snapshot.key
+            
+            Database.fetchPost(with: postId, completion: { post in
+                self.posts.append(post)
+                self.collectionView.reloadData()
+            })
+        }
+    }
 }

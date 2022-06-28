@@ -34,6 +34,17 @@
          contextName = "closure #1 in closure #1 in closure #1 in UserProfileVC.fetchPosts():UserProfileVC.swift">
       </ContextState>
       <ContextState
+         contextName = "SearchVC.configCollectionView():SearchVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.view.frame.width">
+            </PersistentString>
+            <PersistentString
+               value = "view.frame.width">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "FeedVC.collectionView(_:cellForItemAt:):FeedVC.swift">
       </ContextState>
       <ContextState

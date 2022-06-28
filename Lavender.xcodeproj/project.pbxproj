@@ -11,6 +11,9 @@
 		78104F47284A449C000A9042 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78104F46284A449C000A9042 /* Protocols.swift */; };
 		78104F49284B479F000A9042 /* FollowLikeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78104F48284B479F000A9042 /* FollowLikeVC.swift */; };
 		78104F4D284B492A000A9042 /* FollowLikeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78104F4C284B492A000A9042 /* FollowLikeCell.swift */; };
+		781287B428636BF10011F411 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781287B328636BF10011F411 /* NotificationCell.swift */; };
+		781287B62864B2050011F411 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781287B52864B2050011F411 /* Notification.swift */; };
+		781287B828689ECD0011F411 /* SearchPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781287B728689ECD0011F411 /* SearchPostCell.swift */; };
 		78DEA87028548B6E006DE4EF /* SelectImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DEA86F28548B6D006DE4EF /* SelectImageVC.swift */; };
 		78DEA87428548E59006DE4EF /* SelectPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DEA87328548E59006DE4EF /* SelectPhotoCell.swift */; };
 		78DEA87828548EBF006DE4EF /* SelectPhotoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DEA87728548EBF006DE4EF /* SelectPhotoHeader.swift */; };
@@ -47,6 +50,9 @@
 		78104F46284A449C000A9042 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		78104F48284B479F000A9042 /* FollowLikeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowLikeVC.swift; sourceTree = "<group>"; };
 		78104F4C284B492A000A9042 /* FollowLikeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowLikeCell.swift; sourceTree = "<group>"; };
+		781287B328636BF10011F411 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
+		781287B52864B2050011F411 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
+		781287B728689ECD0011F411 /* SearchPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPostCell.swift; sourceTree = "<group>"; };
 		78DEA86F28548B6D006DE4EF /* SelectImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageVC.swift; sourceTree = "<group>"; };
 		78DEA87328548E59006DE4EF /* SelectPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotoCell.swift; sourceTree = "<group>"; };
 		78DEA87728548EBF006DE4EF /* SelectPhotoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotoHeader.swift; sourceTree = "<group>"; };
@@ -159,6 +165,7 @@
 				78F4DEF72837CCF00055639A /* User.swift */,
 				78DEA87928578230006DE4EF /* Post.swift */,
 				78DEA886285F2958006DE4EF /* Comment.swift */,
+				781287B52864B2050011F411 /* Notification.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -213,6 +220,7 @@
 			isa = PBXGroup;
 			children = (
 				78F4DEE1283005870055639A /* NotificationsVC.swift */,
+				781287B328636BF10011F411 /* NotificationCell.swift */,
 			);
 			path = Notifications;
 			sourceTree = "<group>";
@@ -244,6 +252,7 @@
 			children = (
 				78F4DEE728300A130055639A /* SearchVC.swift */,
 				78F4DEFB283E9EFC0055639A /* SearchTableViewCell.swift */,
+				781287B728689ECD0011F411 /* SearchPostCell.swift */,
 			);
 			path = Search;
 			sourceTree = "<group>";
@@ -394,10 +403,13 @@
 				78F122D4282E46A900983574 /* SignUpVC.swift in Sources */,
 				78DEA87028548B6E006DE4EF /* SelectImageVC.swift in Sources */,
 				78DEA87828548EBF006DE4EF /* SelectPhotoHeader.swift in Sources */,
+				781287B828689ECD0011F411 /* SearchPostCell.swift in Sources */,
+				781287B428636BF10011F411 /* NotificationCell.swift in Sources */,
 				78F122D2282C1DD800983574 /* Extensions.swift in Sources */,
 				78104F49284B479F000A9042 /* FollowLikeVC.swift in Sources */,
 				78F4DEE2283005870055639A /* NotificationsVC.swift in Sources */,
 				78DEA881285A16C8006DE4EF /* FeedCell.swift in Sources */,
+				781287B62864B2050011F411 /* Notification.swift in Sources */,
 				78F4DEFC283E9EFD0055639A /* SearchTableViewCell.swift in Sources */,
 				78DEA87428548E59006DE4EF /* SelectPhotoCell.swift in Sources */,
 				78104F47284A449C000A9042 /* Protocols.swift in Sources */,

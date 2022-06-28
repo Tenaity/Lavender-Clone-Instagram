@@ -31,16 +31,9 @@ class FollowLikeCell: UITableViewCell {
             
             user?.checkIfUserIsFollowed(completion: { followed in
                 if followed {
-                    self.followButton.setTitle("Following", for: .normal)
-                    self.followButton.setTitleColor(.black, for: .normal)
-                    self.followButton.layer.borderWidth = 0.5
-                    self.followButton.layer.borderColor = UIColor.lightGray.cgColor
-                    self.followButton.backgroundColor = .white
+                    self.followButton.config(didFollow: true)
                 } else {
-                    self.followButton.setTitle("Follow", for: .normal)
-                    self.followButton.setTitleColor(.white, for: .normal)
-                    self.followButton.layer.borderWidth = 0
-                    self.followButton.backgroundColor = UIColor(red: 17/255, green: 154/255, blue: 237/255, alpha: 1)
+                    self.followButton.config(didFollow: false)
                 }
             })
             
@@ -85,10 +78,11 @@ class FollowLikeCell: UITableViewCell {
     override init(style: UITableViewCell.CellStyle, reuseIdentifier: String?) {
         super.init(style: .subtitle, reuseIdentifier: reuseIdentifier)
         addSubview(profileImageView)
-        self.contentView.addSubview(followButton)
+        
         profileImageView.anchor(top: nil, left: leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: 48, height: 48)
         profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         profileImageView.layer.cornerRadius = 48/2
+        self.contentView.addSubview(followButton)
         followButton.anchor(top: nil, left: nil, bottom: nil, right: rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 12, width: 90, height: 30)
         followButton.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
         textLabel?.text = "Username"
