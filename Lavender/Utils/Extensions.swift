@@ -8,6 +8,22 @@
 import UIKit
 import Firebase
 
+extension UIButton {
+    func config(didFollow: Bool) {
+        if didFollow {
+            self.setTitle("Following", for: .normal)
+            self.setTitleColor(.black, for: .normal)
+            self.layer.borderColor = UIColor.lightGray.cgColor
+            self.backgroundColor = .white
+        } else {
+            self.setTitle("Follow", for: .normal)
+            self.setTitleColor(.white, for: .normal)
+            self.layer.borderWidth = 0
+            self.backgroundColor = UIColor(red: 17/255, green: 154/255, blue: 237/255, alpha: 1)
+        }
+    }
+}
+
 extension UIView {
     func anchor(top: NSLayoutYAxisAnchor?, left: NSLayoutXAxisAnchor?, bottom: NSLayoutYAxisAnchor?, right: NSLayoutXAxisAnchor?, paddingTop: CGFloat, paddingLeft: CGFloat, paddingBottom: CGFloat, paddingRight: CGFloat, width: CGFloat, height: CGFloat) {
         
