@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import ActiveLabel
 
 class CommentCell: UICollectionViewCell {
     
@@ -13,20 +14,10 @@ class CommentCell: UICollectionViewCell {
         didSet {
             
             guard let user = comment?.user,
-                  let profileImageUrl = user.profileImage,
-                  let username = user.username,
-                  let commentText = comment?.commentText,
-                  let commentTimeStamp = configCommentTimeStamp() else { return }
+                  let profileImageUrl = user.profileImage else { return }
             
             self.profileImageView.loadImage(with: profileImageUrl)
-            
-            let attributedText = NSMutableAttributedString(string: "\(username)", attributes: [NSMutableAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12)])
-            attributedText.append(NSAttributedString(string: " \(commentText)", attributes: [NSMutableAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]))
-            
-            attributedText.append(NSAttributedString(string: commentTimeStamp, attributes: [NSMutableAttributedString.Key.font: UIFont.systemFont(ofSize: 12), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
-            
-            self.commentTextView.attributedText = attributedText
-            
+            configCommentLabel()
         }
     }
     
@@ -38,12 +29,69 @@ class CommentCell: UICollectionViewCell {
         return iv
     }()
     
-    let commentTextView: UITextView = {
-        let tv = UITextView()
-        tv.font = UIFont.systemFont(ofSize: 12)
-        tv.isScrollEnabled = false
-        return tv
+    let commentLabel: ActiveLabel = {
+        let label = ActiveLabel()
+        label.font = UIFont.systemFont(ofSize: 12)
+        return label
     }()
+
+    
+    // MARK: Init
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+        
+        addSubview(profileImageView)
+        profileImageView.anchor(top: nil, left: leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: 40, height: 40)
+        profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        profileImageView.layer.cornerRadius = 40/2
+        
+        addSubview(commentLabel)
+        commentLabel.anchor(top: topAnchor, left: profileImageView.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 4, paddingLeft: 4, paddingBottom: 4, paddingRight: 4 , width: 0, height: 0)
+        commentLabel.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
+        
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError("init(coder:) has not been implemented")
+    }
+    
+    
+    // MARK: Handler
+
+    
+    func configCommentLabel() {
+        guard let user = comment?.user,
+              let profileImageUrl = user.profileImage,
+              let username = user.username,
+              let commentText = comment?.commentText,
+              let commentTimeStamp = configCommentTimeStamp() else { return }
+        
+        let customType = ActiveType.custom(pattern: "^\(username)\\b")
+        
+        commentLabel.enabledTypes = [.mention, .hashtag, .url, customType]
+        
+        commentLabel.configureLinkAttribute = { (type, attributes, isSelected) in
+            var atts = attributes
+            
+            switch type {
+            case .custom:
+                atts[NSAttributedString.Key.font] = UIFont.boldSystemFont(ofSize: 12)
+            default: ()
+            }
+            
+            return atts
+        }
+        
+        commentLabel.customize { label in
+            label.text = "\(username) \(commentText)"
+            label.customColor[customType] = .black
+            label.font = UIFont.systemFont(ofSize: 12)
+            label.textColor = .black
+            commentLabel.numberOfLines = 0
+        }
+    }
+    
     
     func configCommentTimeStamp() -> String? {
         guard let comment = self.comment else { return nil }
@@ -57,24 +105,6 @@ class CommentCell: UICollectionViewCell {
         let dateToDisplay = dateFormatter.string(from: comment.creationDate, to: now)
         guard let dateToDisplay = dateToDisplay else { return nil }
         return " \(String(describing: dateToDisplay))"
-    }
-    
-    override init(frame: CGRect) {
-        super.init(frame: frame)
-        
-        addSubview(profileImageView)
-        profileImageView.anchor(top: nil, left: leftAnchor, bottom: nil, right: nil, paddingTop: 0, paddingLeft: 10, paddingBottom: 0, paddingRight: 0, width: 40, height: 40)
-        profileImageView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        profileImageView.layer.cornerRadius = 40/2
-        
-        addSubview(commentTextView)
-        commentTextView.anchor(top: topAnchor, left: profileImageView.rightAnchor, bottom: bottomAnchor, right: rightAnchor, paddingTop: 4, paddingLeft: 4, paddingBottom: 4, paddingRight: 4 , width: 0, height: 0)
-        commentTextView.centerYAnchor.constraint(equalTo: self.centerYAnchor).isActive = true
-        
-    }
-    
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
     }
     
 }

@@ -115,13 +115,13 @@ class CommentVC: UICollectionViewController, UICollectionViewDelegateFlowLayout 
         
         let height = max(40 + 8 + 8, estimatedSize.height)
         return CGSize(width: view.frame.width, height: height)
-        
-//        return CGSize(width: collectionView.frame.width, height: 50)
     }
     
     override func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         let cell = collectionView.dequeueReusableCell(withReuseIdentifier: reuseIdentifier, for: indexPath) as! CommentCell
         cell.comment = comments[indexPath.item]
+        handleHashtagTapped(forCell: cell)
+        handleMentionTapped(forCell: cell)
         return cell
     }
     
@@ -145,11 +145,31 @@ class CommentVC: UICollectionViewController, UICollectionViewDelegateFlowLayout 
                       "creationDate": creationDate,
                       "uid": uid] as [String : Any]
         
-        COMMENT_REF.child(postId).childByAutoId().updateChildValues(values) { (err, ref) in
+        COMMENT_REF.child(postId).childByAutoId().updateChildValues(values) { [weak self ](err, ref) in
+            guard let self = self else { return }
+            if commentText.contains("@") {
+                self.uploadMentionNotification(forPostId: postId, withText: commentText, isForComment: true)
+            }
             self.uploadCommentNotificationToServer()
             self.commentTextField.text = nil
         }
     }
+    
+    func handleHashtagTapped(forCell cell: CommentCell) {
+        cell.commentLabel.handleHashtagTap { [weak self] hashtag in
+            guard let self = self else { return }
+            let hashtagController = HashtagController(collectionViewLayout: UICollectionViewFlowLayout())
+            hashtagController.hashtag = hashtag
+            self.navigationController?.pushViewController(hashtagController, animated: true)
+        }
+    }
+    
+    func handleMentionTapped(forCell cell: CommentCell) {
+        cell.commentLabel.handleMentionTap { [weak self] mention in
+            self?.getMentionedUser(withUsername: mention)
+        }
+    }
+
     
     // MARK: API
     

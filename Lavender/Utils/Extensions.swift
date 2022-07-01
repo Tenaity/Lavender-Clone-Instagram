@@ -78,3 +78,65 @@ extension Database {
         }
     }
 }
+
+extension UIViewController {
+    
+    func getMentionedUser(withUsername username: String) {
+        USER_REF.observe(.childAdded) { snaphot in
+            let uid = snaphot.key
+            USER_REF.child(uid).observeSingleEvent(of: .value, with: { snapshot in
+                guard let dictionary = snaphot.value as? Dictionary<String, AnyObject> else { return }
+                
+                if username == dictionary["username"] as? String {
+                    Database.fetchUser(with: uid, completion: { [weak self] user in
+                        guard let self = self else { return }
+                        let userProfileController = UserProfileVC(collectionViewLayout: UICollectionViewFlowLayout())
+                        userProfileController.user = user
+                        self.navigationController?.pushViewController(userProfileController, animated: true)
+                    })
+                }
+            })
+        }
+    }
+    
+    func uploadMentionNotification(forPostId postId: String, withText text: String, isForComment: Bool) {
+        guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        let creationDate = Int(NSDate().timeIntervalSince1970)
+        
+        let words = text.components(separatedBy: .whitespacesAndNewlines)
+        
+        var mentionIntegerValue: Int!
+        
+        if isForComment {
+            mentionIntegerValue = COMMENT_MENTION_INT_VALUE
+        } else {
+            mentionIntegerValue = POST_MENTION_INT_VALUE
+        }
+        
+        for var word in words {
+            if word.hasPrefix("@") {
+                word = word.trimmingCharacters(in: .symbols)
+                word = word.trimmingCharacters(in: .punctuationCharacters)
+                
+                USER_REF.observe(.childAdded, with: { snapshot in
+                    let uid = snapshot.key
+                    USER_REF.child(uid).observeSingleEvent(of: .value, with: { snapshot in
+                        guard let dictionary = snapshot.value as? Dictionary<String, AnyObject> else { return }
+                        
+                        if word == dictionary["username"] as? String {
+                            
+                            let notificationValues = ["postId": postId,
+                                                      "uid": currentUid,
+                                                      "type": mentionIntegerValue,
+                                                      "creationDate": creationDate] as [String: Any]
+                            
+                            if currentUid != uid {
+                                NOTIFICATIONS_REF.child(uid).childByAutoId().updateChildValues(notificationValues)
+                            }
+                        }
+                    })
+                })
+            }
+        }
+    }
+}
