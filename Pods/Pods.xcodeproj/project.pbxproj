@@ -19,7 +19,6 @@
 				0A810CE6BDEBB8C1AC51178C717B1436 /* PBXTargetDependency */,
 			);
 			name = Firebase;
-			productName = Firebase;
 		};
 /* End PBXAggregateTarget section */
 
@@ -3833,7 +3832,7 @@
 				C1998E0D8085221AD87F89B614C10E52 /* GTMSessionFetcher */,
 				0A9F46A999C47653013D3AD854352507 /* leveldb-library */,
 				06FC5C9CF96D60C50FCD47D339C91951 /* nanopb */,
-				B526594361BBB95A65DEF981585293AF /* Pods_Lavender.framework */,
+				B526594361BBB95A65DEF981585293AF /* Pods-Lavender */,
 				3347A1AB6546F0A3977529B8F199DC41 /* PromisesObjC */,
 			);
 			name = Products;
@@ -3990,8 +3989,8 @@
 				5844C6A85FC30CDD85D7D53255554DDA /* encode */,
 				218A6B5AF3F9C04918F07BE5A43CDCE2 /* Support Files */,
 			);
-			name = "Support Files";
-			path = "../Target Support Files/GTMSessionFetcher";
+			name = nanopb;
+			path = nanopb;
 			sourceTree = "<group>";
 		};
 		E80461FA77D49C5CD936AF611D09C6F6 /* ActiveLabel */ = {
@@ -4838,7 +4837,7 @@
 			);
 			name = "Pods-Lavender";
 			productName = Pods_Lavender;
-			productReference = B526594361BBB95A65DEF981585293AF /* Pods_Lavender.framework */;
+			productReference = B526594361BBB95A65DEF981585293AF /* Pods-Lavender */;
 			productType = "com.apple.product-type.framework";
 		};
 		23E7C4A52360C026F97E4A96D91B03CE /* FirebaseStorage */ = {
