@@ -96,7 +96,9 @@ class UploadPostVC: UIViewController, UITextViewDelegate {
             }
             
             // image url
-            storageRef.downloadURL(completion: { (url, err) in
+            storageRef.downloadURL(completion: { [weak self] (url, err) in
+                
+                guard let self = self else { return }
                 guard let downloadURL = url else {
                     print("an error ocured")
                     return
@@ -120,6 +122,14 @@ class UploadPostVC: UIViewController, UITextViewDelegate {
                     
                     // update user-feed
                     self.updateUserFeeds(with: postKey)
+                    
+                    // upload hashtag to server
+                    self.uploadHashtagToServer(withPostId: postKey)
+                    
+                    // upload mention notification to server
+                    if caption.contains("@") {
+                        self.uploadMentionNotification(forPostId: postKey, withText: caption, isForComment: false)
+                    }
                     
                     // return to home feed
                     self.dismiss(animated: true, completion: {
@@ -159,6 +169,25 @@ class UploadPostVC: UIViewController, UITextViewDelegate {
             return
         }
         photoImageView.image = selectedImage
+    }
+    
+    // MARK: API
+    
+    func uploadHashtagToServer(withPostId postId: String) {
+        guard let caption = captionTextView.text else { return }
+        
+        let words: [String] = caption.components(separatedBy: .whitespacesAndNewlines)
+        
+        for var word in words {
+            if word.hasPrefix("#") {
+                word = word.trimmingCharacters(in: .punctuationCharacters)
+                word = word.trimmingCharacters(in: .symbols)
+                
+                let hashtagValues = [postId: 1]
+                
+                HASHTAG_POST_REF.child(word.lowercased()).updateChildValues(hashtagValues)
+            }
+        }
     }
 
 }

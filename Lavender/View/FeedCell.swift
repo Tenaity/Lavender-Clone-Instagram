@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import ActiveLabel
 
 class FeedCell: UICollectionViewCell {
     
@@ -23,7 +24,7 @@ class FeedCell: UICollectionViewCell {
             Database.fetchUser(with: ownerUid) { user in
                 self.profileImageView.loadImage(with: user.profileImage)
                 self.usernameButton.setTitle(user.username, for: .normal)
-                self.configurePostCaption(user: user)
+                self.configPostCaption(user: user)
             }
             postImageView.loadImage(with: imageUrl)
             if likes > 1 {
@@ -114,11 +115,8 @@ class FeedCell: UICollectionViewCell {
         return label
     }()
     
-    let captionLabel: UILabel = {
-        let label = UILabel()
-        let attributedText = NSMutableAttributedString(string: "Username", attributes: [NSMutableAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12)])
-        attributedText.append(NSAttributedString(string: " Some test caption for now", attributes: [NSMutableAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]))
-        label.attributedText = attributedText
+    let captionLabel: ActiveLabel = {
+        let label = ActiveLabel()
         return label
     }()
     
@@ -126,7 +124,6 @@ class FeedCell: UICollectionViewCell {
         let label = UILabel()
         label.textColor = .lightGray
         label.font = UIFont.boldSystemFont(ofSize: 12)
-        label.text = "3 days ago"
         return label
     }()
     
@@ -179,25 +176,51 @@ class FeedCell: UICollectionViewCell {
         addSubview(postImageView)
         postImageView.anchor(top: profileImageView.bottomAnchor, left: leftAnchor, bottom: nil, right: rightAnchor, paddingTop: 8, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         postImageView.heightAnchor.constraint(equalTo: widthAnchor, multiplier: 1).isActive = true
-        configureActionButton()
+        configActionButton()
         
         addSubview(likesLabel)
         likesLabel.anchor(top: likeButton.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: -4, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
         addSubview(captionLabel)
-        captionLabel.anchor(top: likesLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
+        captionLabel.anchor(top: likesLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: frame.width - 10, height: 0)
         addSubview(postTimeLabel)
         postTimeLabel.anchor(top: captionLabel.bottomAnchor, left: leftAnchor, bottom: nil, right: nil, paddingTop: 8, paddingLeft: 8, paddingBottom: 0, paddingRight: 0, width: 0, height: 0)
     }
     
-    func configurePostCaption(user: User) {
+    func configPostCaption(user: User) {
         guard let post = self.post,
-        let caption = post.caption else { return }
-        let attributedText = NSMutableAttributedString(string: user.username, attributes: [NSMutableAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 12)])
-        attributedText.append(NSAttributedString(string: " \(caption)", attributes: [NSMutableAttributedString.Key.font: UIFont.systemFont(ofSize: 12)]))
-        captionLabel.attributedText = attributedText
+              let caption = post.caption,
+              let username = post.user.username else { return }
+        
+        // look for username as pattern
+        let customType = ActiveType.custom(pattern: "^\(username)\\b")
+        
+        // enable username as custom type
+        captionLabel.enabledTypes = [.mention, .hashtag, .url, customType]
+        
+        // config username link attributes
+        captionLabel.configureLinkAttribute = { (type, attributes, isSelected) in
+            var atts = attributes
+            
+            switch type {
+            case .custom:
+                atts[NSAttributedString.Key.font] = UIFont.boldSystemFont(ofSize: 12)
+            default: ()
+            }
+            return atts
+        }
+        
+        captionLabel.customize { label in
+            label.text = "\(username) \(caption)"
+            label.customColor[customType] = .black
+            label.font = UIFont.systemFont(ofSize: 12)
+            label.textColor = .black
+            captionLabel.numberOfLines = 1
+        }
+        
+        postTimeLabel.text = "2 Day"
     }
     
-    func configureActionButton() {
+    func configActionButton() {
         
         let stackView = UIStackView(arrangedSubviews: [likeButton, commentButton, messageButton])
         stackView.axis = .horizontal

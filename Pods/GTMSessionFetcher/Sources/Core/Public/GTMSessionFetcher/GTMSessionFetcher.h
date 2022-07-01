@@ -331,43 +331,6 @@
 #define GTMSESSION_LOG_DEBUG_VERBOSE(...)
 #endif
 
-// These will be removed in the near future, folks should move off of them.
-#ifndef GTM_NULLABLE
-#if __has_feature(nullability)  // Available starting in Xcode 6.3
-#define GTM_NULLABLE_TYPE __nullable
-#define GTM_NONNULL_TYPE __nonnull
-#define GTM_NULLABLE nullable
-#define GTM_NONNULL_DECL nonnull  // GTM_NONNULL is used by GTMDefines.h
-#define GTM_NULL_RESETTABLE null_resettable
-#define GTM_ASSUME_NONNULL_BEGIN NS_ASSUME_NONNULL_BEGIN
-#define GTM_ASSUME_NONNULL_END NS_ASSUME_NONNULL_END
-#else
-#define GTM_NULLABLE_TYPE
-#define GTM_NONNULL_TYPE
-#define GTM_NULLABLE
-#define GTM_NONNULL_DECL
-#define GTM_NULL_RESETTABLE
-#define GTM_ASSUME_NONNULL_BEGIN
-#define GTM_ASSUME_NONNULL_END
-#endif  // __has_feature(nullability)
-#endif  // GTM_NULLABLE
-#ifndef GTM_DECLARE_GENERICS
-#if __has_feature(objc_generics)
-#define GTM_DECLARE_GENERICS 1
-#else
-#define GTM_DECLARE_GENERICS 0
-#endif
-#endif
-#ifndef GTM_NSArrayOf
-#if GTM_DECLARE_GENERICS
-#define GTM_NSArrayOf(value) NSArray<value>
-#define GTM_NSDictionaryOf(key, value) NSDictionary<key, value>
-#else
-#define GTM_NSArrayOf(value) NSArray
-#define GTM_NSDictionaryOf(key, value) NSDictionary
-#endif  // __has_feature(objc_generics)
-#endif  // GTM_NSArrayOf
-
 // For iOS, the fetcher can declare itself a background task to allow fetches
 // to finish when the app leaves the foreground.
 //
@@ -384,21 +347,6 @@
 
 #ifdef __cplusplus
 extern "C" {
-#endif
-
-#if !defined(GTMBridgeFetcher)
-// The bridge macros are deprecated, and should be replaced; GTMHTTPFetcher is no longer
-// supported and all code should switch to use GTMSessionFetcher types directly.
-#define GTMBridgeFetcher GTMSessionFetcher
-#define GTMBridgeFetcherService GTMSessionFetcherService
-#define GTMBridgeFetcherServiceProtocol GTMSessionFetcherServiceProtocol
-#define GTMBridgeAssertValidSelector GTMSessionFetcherAssertValidSelector
-#define GTMBridgeCookieStorage GTMSessionCookieStorage
-#define GTMBridgeCleanedUserAgentString GTMFetcherCleanedUserAgentString
-#define GTMBridgeSystemVersionString GTMFetcherSystemVersionString
-#define GTMBridgeApplicationIdentifier GTMFetcherApplicationIdentifier
-#define kGTMBridgeFetcherStatusDomain kGTMSessionFetcherStatusDomain
-#define kGTMBridgeFetcherStatusBadRequest GTMSessionFetcherStatusBadRequest
 #endif
 
 // When creating background sessions to perform out-of-process uploads and
@@ -1258,13 +1206,6 @@ typedef void (^GTMFetcherDecoratorFetcherWillStartCompletionHandler)(NSURLReques
 
 #endif  // STRIP_GTM_FETCH_LOGGING
 
-@end
-
-@interface GTMSessionFetcher (BackwardsCompatibilityOnly)
-// Clients using GTMSessionFetcher should set the cookie storage explicitly themselves;
-// this method is deprecated and will be removed soon.
-- (void)setCookieStorageMethod:(NSInteger)method
-    __deprecated_msg("Create an NSHTTPCookieStorage and set .cookieStorage directly.");
 @end
 
 // Until we can just instantiate NSHTTPCookieStorage for local use, we'll

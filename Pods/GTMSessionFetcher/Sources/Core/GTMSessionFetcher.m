@@ -17,14 +17,14 @@
 #error "This file requires ARC support."
 #endif
 
-#import "GTMSessionFetcher.h"
+#import "GTMSessionFetcher/GTMSessionFetcher.h"
 #if TARGET_OS_OSX && GTMSESSION_RECONNECT_BACKGROUND_SESSIONS_ON_LAUNCH
 // To reconnect background sessions on Mac outside +load requires importing and linking
 // AppKit to access the NSApplicationDidFinishLaunching symbol.
 #import <AppKit/AppKit.h>
 #endif
 
-#import <sys/utsname.h>
+#include <sys/utsname.h>
 
 #ifndef STRIP_GTM_FETCH_LOGGING
 #error GTMSessionFetcher headers should have defaulted this if it wasn't already defined.
@@ -675,7 +675,7 @@ static GTMSessionFetcherTestBlock _Nullable gGlobalTestBlock;
 #if GTM_SDK_REQUIRES_TLSMINIMUMSUPPORTEDPROTOCOLVERSION
       _configuration.TLSMinimumSupportedProtocolVersion = tls_protocol_version_TLSv12;
 #elif GTM_SDK_SUPPORTS_TLSMINIMUMSUPPORTEDPROTOCOLVERSION
-      if (@available(iOS 13, tvOS 13, watchOS 6, macOS 10.15, *)) {
+      if (@available(iOS 13, tvOS 13, macOS 10.15, *)) {
         _configuration.TLSMinimumSupportedProtocolVersion = tls_protocol_version_TLSv12;
       } else {
         _configuration.TLSMinimumSupportedProtocol = kTLSProtocol12;
@@ -2622,36 +2622,42 @@ static _Nullable id<GTMUIApplicationProtocol> gSubstituteUIApp;
 
   // Callbacks will be released in the method stopFetchReleasingCallbacks:
   GTMSessionFetcherCompletionHandler handler;
+  dispatch_queue_t callbackQueue;
   @synchronized(self) {
     GTMSessionMonitorSynchronized(self);
 
+    // Capture the completion handler and callback queue, and call them only
+    // after releasing any callbacks to ensure the order of release vs
+    // callback is deterministic given potential QoS differences between
+    // callback queue and whatever queue this method eventually executes on.
     handler = _completionHandler;
-
-    if (handler) {
-      [self invokeOnCallbackQueueUnlessStopped:^{
-        handler(data, error);
-
-        // Post a notification, primarily to allow code to collect responses for
-        // testing.
-        //
-        // The observing code is not likely on the fetcher's callback
-        // queue, so this posts explicitly to the main queue.
-        NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
-        if (data) {
-          userInfo[kGTMSessionFetcherCompletionDataKey] = data;
-        }
-        if (error) {
-          userInfo[kGTMSessionFetcherCompletionErrorKey] = error;
-        }
-        [self postNotificationOnMainThreadWithName:kGTMSessionFetcherCompletionInvokedNotification
-                                          userInfo:userInfo
-                                      requireAsync:NO];
-      }];
-    }
-  }  // @synchronized(self)
+    callbackQueue = _callbackQueue;
+  }
 
   if (shouldReleaseCallbacks) {
     [self releaseCallbacks];
+  }
+
+  if (handler) {
+    [self invokeOnCallbackQueue:callbackQueue afterUserStopped:NO block:^{
+      handler(data, error);
+
+      // Post a notification, primarily to allow code to collect responses for
+      // testing.
+      //
+      // The observing code is not likely on the fetcher's callback
+      // queue, so this posts explicitly to the main queue.
+      NSMutableDictionary *userInfo = [NSMutableDictionary dictionary];
+      if (data) {
+        userInfo[kGTMSessionFetcherCompletionDataKey] = data;
+      }
+      if (error) {
+        userInfo[kGTMSessionFetcherCompletionErrorKey] = error;
+      }
+      [self postNotificationOnMainThreadWithName:kGTMSessionFetcherCompletionInvokedNotification
+                                        userInfo:userInfo
+                                    requireAsync:NO];
+    }];
   }
 }
 
@@ -4164,36 +4170,6 @@ static NSMutableDictionary *gSystemCompletionHandlers = nil;
   return NO;
 }
 #endif  // STRIP_GTM_FETCH_LOGGING
-
-@end
-
-@implementation GTMSessionFetcher (BackwardsCompatibilityOnly)
-
-- (void)setCookieStorageMethod:(NSInteger)method {
-  // For backwards compatibility with the old fetcher, we'll support the old constants.
-  //
-  // Clients using the GTMSessionFetcher class should set the cookie storage explicitly
-  // themselves.
-  NSHTTPCookieStorage *storage = nil;
-  switch (method) {
-    case 0:  // kGTMHTTPFetcherCookieStorageMethodStatic
-             // nil storage will use [[self class] staticCookieStorage] when the fetch begins.
-      break;
-    case 1:  // kGTMHTTPFetcherCookieStorageMethodFetchHistory
-             // Do nothing; use whatever was set by the fetcher service.
-      return;
-    case 2:  // kGTMHTTPFetcherCookieStorageMethodSystemDefault
-      storage = [NSHTTPCookieStorage sharedHTTPCookieStorage];
-      break;
-    case 3:  // kGTMHTTPFetcherCookieStorageMethodNone
-             // Create temporary storage for this fetcher only.
-      storage = [[GTMSessionCookieStorage alloc] init];
-      break;
-    default:
-      GTMSESSION_ASSERT_DEBUG(0, @"Invalid cookie storage method: %d", (int)method);
-  }
-  self.cookieStorage = storage;
-}
 
 @end
 
