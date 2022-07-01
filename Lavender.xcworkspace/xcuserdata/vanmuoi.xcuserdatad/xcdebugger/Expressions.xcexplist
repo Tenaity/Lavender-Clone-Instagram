@@ -31,9 +31,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "closure #1 in closure #1 in closure #1 in UserProfileVC.fetchPosts():UserProfileVC.swift">
-      </ContextState>
-      <ContextState
          contextName = "SearchVC.configCollectionView():SearchVC.swift">
          <PersistentStrings>
             <PersistentString
@@ -45,7 +42,21 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #1 in closure #1 in closure #1 in UserProfileVC.fetchPosts():UserProfileVC.swift">
+      </ContextState>
+      <ContextState
          contextName = "FeedVC.collectionView(_:cellForItemAt:):FeedVC.swift">
+      </ContextState>
+      <ContextState
+         contextName = "MessengerCell.message.didset:MessengerCell.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "message?.messageText">
+            </PersistentString>
+            <PersistentString
+               value = "message?.creatitonDate">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "Post.adjustLike(addLike:):Post.swift">

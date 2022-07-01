@@ -23,7 +23,10 @@ class CommentVC: UICollectionViewController, UICollectionViewDelegateFlowLayout 
         containerView.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
         containerView.addSubview(commentTextField)
         containerView.addSubview(postButton)
+        
         commentTextField.anchor(top: containerView.topAnchor, left: containerView.leftAnchor, bottom: containerView.bottomAnchor, right: postButton.leftAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 8, width: 0, height: 0)
+        
+        
         
         postButton.anchor(top: nil, left: commentTextField.rightAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 8, width: 50, height: 0)
         postButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
