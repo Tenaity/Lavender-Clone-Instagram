@@ -8,12 +8,19 @@
 
 /* Begin PBXBuildFile section */
 		6C8269AABFBED264B26DBE6A /* Pods_Lavender.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 2926D9B0DE5614D19D3CDB4D /* Pods_Lavender.framework */; };
+		780BC162286B6F9800FD82C7 /* MessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780BC161286B6F9800FD82C7 /* MessageController.swift */; };
+		780BC164286BD16E00FD82C7 /* MessengerCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 780BC163286BD16E00FD82C7 /* MessengerCell.swift */; };
 		78104F47284A449C000A9042 /* Protocols.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78104F46284A449C000A9042 /* Protocols.swift */; };
 		78104F49284B479F000A9042 /* FollowLikeVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78104F48284B479F000A9042 /* FollowLikeVC.swift */; };
 		78104F4D284B492A000A9042 /* FollowLikeCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78104F4C284B492A000A9042 /* FollowLikeCell.swift */; };
 		781287B428636BF10011F411 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781287B328636BF10011F411 /* NotificationCell.swift */; };
 		781287B62864B2050011F411 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781287B52864B2050011F411 /* Notification.swift */; };
 		781287B828689ECD0011F411 /* SearchPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781287B728689ECD0011F411 /* SearchPostCell.swift */; };
+		787A2455286CB5A5001156B0 /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787A2454286CB5A5001156B0 /* NewMessageController.swift */; };
+		787A2457286CB718001156B0 /* NewMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787A2456286CB718001156B0 /* NewMessageCell.swift */; };
+		787A2459286CC6A6001156B0 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787A2458286CC6A6001156B0 /* Message.swift */; };
+		787A245B286CC854001156B0 /* ChatController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787A245A286CC854001156B0 /* ChatController.swift */; };
+		787A245D286CCA5B001156B0 /* ChatCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787A245C286CCA5B001156B0 /* ChatCell.swift */; };
 		78DEA87028548B6E006DE4EF /* SelectImageVC.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DEA86F28548B6D006DE4EF /* SelectImageVC.swift */; };
 		78DEA87428548E59006DE4EF /* SelectPhotoCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DEA87328548E59006DE4EF /* SelectPhotoCell.swift */; };
 		78DEA87828548EBF006DE4EF /* SelectPhotoHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 78DEA87728548EBF006DE4EF /* SelectPhotoHeader.swift */; };
@@ -47,12 +54,19 @@
 
 /* Begin PBXFileReference section */
 		2926D9B0DE5614D19D3CDB4D /* Pods_Lavender.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_Lavender.framework; sourceTree = BUILT_PRODUCTS_DIR; };
+		780BC161286B6F9800FD82C7 /* MessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageController.swift; sourceTree = "<group>"; };
+		780BC163286BD16E00FD82C7 /* MessengerCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessengerCell.swift; sourceTree = "<group>"; };
 		78104F46284A449C000A9042 /* Protocols.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Protocols.swift; sourceTree = "<group>"; };
 		78104F48284B479F000A9042 /* FollowLikeVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowLikeVC.swift; sourceTree = "<group>"; };
 		78104F4C284B492A000A9042 /* FollowLikeCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FollowLikeCell.swift; sourceTree = "<group>"; };
 		781287B328636BF10011F411 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		781287B52864B2050011F411 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		781287B728689ECD0011F411 /* SearchPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPostCell.swift; sourceTree = "<group>"; };
+		787A2454286CB5A5001156B0 /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
+		787A2456286CB718001156B0 /* NewMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageCell.swift; sourceTree = "<group>"; };
+		787A2458286CC6A6001156B0 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		787A245A286CC854001156B0 /* ChatController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatController.swift; sourceTree = "<group>"; };
+		787A245C286CCA5B001156B0 /* ChatCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ChatCell.swift; sourceTree = "<group>"; };
 		78DEA86F28548B6D006DE4EF /* SelectImageVC.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectImageVC.swift; sourceTree = "<group>"; };
 		78DEA87328548E59006DE4EF /* SelectPhotoCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotoCell.swift; sourceTree = "<group>"; };
 		78DEA87728548EBF006DE4EF /* SelectPhotoHeader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SelectPhotoHeader.swift; sourceTree = "<group>"; };
@@ -108,6 +122,19 @@
 			name = Frameworks;
 			sourceTree = "<group>";
 		};
+		780BC160286B6F8200FD82C7 /* Message */ = {
+			isa = PBXGroup;
+			children = (
+				780BC161286B6F9800FD82C7 /* MessageController.swift */,
+				780BC163286BD16E00FD82C7 /* MessengerCell.swift */,
+				787A2454286CB5A5001156B0 /* NewMessageController.swift */,
+				787A2456286CB718001156B0 /* NewMessageCell.swift */,
+				787A245A286CC854001156B0 /* ChatController.swift */,
+				787A245C286CCA5B001156B0 /* ChatCell.swift */,
+			);
+			path = Message;
+			sourceTree = "<group>";
+		};
 		78F122AB282C14E200983574 = {
 			isa = PBXGroup;
 			children = (
@@ -147,6 +174,7 @@
 		78F122CB282C169300983574 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				780BC160286B6F8200FD82C7 /* Message */,
 				78F4DEF32833FE690055639A /* Search */,
 				78F4DEF22833FE570055639A /* UploadPost */,
 				78F4DEF12833FE190055639A /* Profile */,
@@ -166,6 +194,7 @@
 				78DEA87928578230006DE4EF /* Post.swift */,
 				78DEA886285F2958006DE4EF /* Comment.swift */,
 				781287B52864B2050011F411 /* Notification.swift */,
+				787A2458286CC6A6001156B0 /* Message.swift */,
 			);
 			path = Model;
 			sourceTree = "<group>";
@@ -383,7 +412,9 @@
 			buildActionMask = 2147483647;
 			files = (
 				78F4DEF82837CCF00055639A /* User.swift in Sources */,
+				787A245B286CC854001156B0 /* ChatController.swift in Sources */,
 				78DEA87F2859EB74006DE4EF /* CustomImageView.swift in Sources */,
+				787A245D286CCA5B001156B0 /* ChatCell.swift in Sources */,
 				78DEA87A28578230006DE4EF /* Post.swift in Sources */,
 				78DEA887285F2958006DE4EF /* Comment.swift in Sources */,
 				78F4DEF62833FEDA0055639A /* UserProfileHeaderCell.swift in Sources */,
@@ -403,14 +434,19 @@
 				78F122D4282E46A900983574 /* SignUpVC.swift in Sources */,
 				78DEA87028548B6E006DE4EF /* SelectImageVC.swift in Sources */,
 				78DEA87828548EBF006DE4EF /* SelectPhotoHeader.swift in Sources */,
+				787A2459286CC6A6001156B0 /* Message.swift in Sources */,
 				781287B828689ECD0011F411 /* SearchPostCell.swift in Sources */,
 				781287B428636BF10011F411 /* NotificationCell.swift in Sources */,
 				78F122D2282C1DD800983574 /* Extensions.swift in Sources */,
 				78104F49284B479F000A9042 /* FollowLikeVC.swift in Sources */,
 				78F4DEE2283005870055639A /* NotificationsVC.swift in Sources */,
 				78DEA881285A16C8006DE4EF /* FeedCell.swift in Sources */,
+				780BC162286B6F9800FD82C7 /* MessageController.swift in Sources */,
 				781287B62864B2050011F411 /* Notification.swift in Sources */,
+				780BC164286BD16E00FD82C7 /* MessengerCell.swift in Sources */,
+				787A2455286CB5A5001156B0 /* NewMessageController.swift in Sources */,
 				78F4DEFC283E9EFD0055639A /* SearchTableViewCell.swift in Sources */,
+				787A2457286CB718001156B0 /* NewMessageCell.swift in Sources */,
 				78DEA87428548E59006DE4EF /* SelectPhotoCell.swift in Sources */,
 				78104F47284A449C000A9042 /* Protocols.swift in Sources */,
 			);
