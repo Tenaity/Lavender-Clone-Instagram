@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import ActiveLabel
 
 private let reuseIdentifier = "Cell"
 
@@ -73,6 +74,9 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, Fe
         } else {
             cell.post = posts[indexPath.row]
         }
+        handleHashTagTapped(forCell: cell)
+        handleUserNameTapped(forCell: cell)
+        handleMentionTapped(forCell: cell)
         cell.delegate = self
         return cell
     }
@@ -158,6 +162,37 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, Fe
     
     
     // MARK: - Handlers
+    
+    func handleHashTagTapped(forCell cell: FeedCell) {
+        cell.captionLabel.handleHashtagTap { [weak self] hashTag in
+            guard let self = self else { return }
+            let hashtagController = HashtagController(collectionViewLayout: UICollectionViewFlowLayout())
+            hashtagController.hashtag = hashTag
+            self.navigationController?.pushViewController(hashtagController, animated: true)
+        }
+    }
+    
+    func handleMentionTapped(forCell cell: FeedCell) {
+        cell.captionLabel.handleMentionTap { [weak self] username in
+            guard let self = self else { return }
+            self.getMentionedUser(withUsername: username)
+        }
+    }
+    
+    func handleUserNameTapped(forCell cell: FeedCell) {
+        
+        guard let user = cell.post?.user else { return }
+        
+        guard let username = cell.post?.user.username else { return }
+        
+        let customType = ActiveType.custom(pattern: "^\(username)\\b")
+        
+        cell.captionLabel.handleCustomTap(for: customType) { _ in
+            let userProfileController = UserProfileVC(collectionViewLayout: UICollectionViewFlowLayout())
+            userProfileController.user = user
+            self.navigationController?.pushViewController(userProfileController, animated: true)
+        }
+    }
     
     func configureNavigationBar() {
         
