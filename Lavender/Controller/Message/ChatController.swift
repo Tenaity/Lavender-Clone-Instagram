@@ -57,6 +57,8 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        self.collectionView.backgroundColor = .white
+        
         collectionView.register(ChatCell.self, forCellWithReuseIdentifier: reuseIdentifer)
         
         configNavigationBar()
@@ -131,13 +133,13 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
         if message.fromId == currentUid {
             cell.bubbleViewRightAnchor?.isActive = true
             cell.bubbleViewLeftAnchor?.isActive = false
-            cell.bubbleView.backgroundColor = UIColor.rgb(red: 0, green: 137, blue: 249)
+            cell.bubbleView.backgroundColor = UIColor.rgbPrimary()
             cell.textView.textColor = .white
             cell.profileImageView.isHidden = true
         } else {
             cell.bubbleViewRightAnchor?.isActive = false
             cell.bubbleViewLeftAnchor?.isActive = true
-            cell.bubbleView.backgroundColor = UIColor.rgb(red: 240, green: 240, blue: 240)
+            cell.bubbleView.backgroundColor = UIColor.rgbNormal()
             cell.textView.textColor = .black
             cell.profileImageView.isHidden = false
         }

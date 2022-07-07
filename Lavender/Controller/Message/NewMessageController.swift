@@ -23,6 +23,8 @@ class NewMessageController: UITableViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        view.backgroundColor = .white
+        
         tableView.register(NewMessageCell.self, forCellReuseIdentifier: reuseIdentifer)
         
         configNavigationBar()

@@ -6,9 +6,13 @@ target 'Lavender' do
   use_frameworks!
 
   # Pods for Lavender
+
 pod 'Firebase/Auth'
 pod 'Firebase/Database'
 pod 'Firebase/Storage'
+pod 'Firebase/Messaging'
+pod 'Firebase/Firestore'
 pod 'ActiveLabel'
+pod 'GoogleSignIn', '5.0.2'
 
 end

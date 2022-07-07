@@ -18,10 +18,11 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, Fe
     var posts = [Post]()
     var viewSinglePost = false
     var post: Post?
+    var currentKey: String?
+    var userProfileController: UserProfileVC?
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
         collectionView.backgroundColor = .white
         
         self.collectionView!.register(FeedCell.self, forCellWithReuseIdentifier: reuseIdentifier)
@@ -50,6 +51,14 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, Fe
     }
 
     // MARK: - UICollectionViewDatasource
+    
+    override func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        if posts.count > 4 {
+            if indexPath.item == posts.count - 1 {
+                fetchPosts()
+            }
+        }
+    }
 
     override func numberOfSections(in collectionView: UICollectionView) -> Int {
         // #warning Incomplete implementation, return the number of sections
@@ -91,7 +100,49 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, Fe
     }
     
     func handleOptionsTapped(for cell: FeedCell) {
-        print("----> options delegate")
+        
+        guard let post = cell.post else { return }
+        
+        if post.ownerUid == Auth.auth().currentUser?.uid {
+            
+            let alertController = UIAlertController(title: "Options", message: nil, preferredStyle: .actionSheet)
+            
+            alertController.addAction(UIAlertAction(title: "Delete Post", style: .destructive, handler: { [weak self] _ in
+                guard let self = self else { return }
+                post.deletePost()
+                
+                if !self.viewSinglePost {
+                    self.handleRefreshControl()
+                } else {
+                    
+                    if let userProfileController = self.userProfileController {
+                        _ = self.navigationController?.popViewController(animated: true)
+                        userProfileController.handleRefreshControl()
+                    }
+                    
+                    
+                }
+            }))
+            
+            alertController.addAction(UIAlertAction(title: "Edit Post", style: .default, handler: { [weak self] _ in
+                guard let self = self else { return }
+                
+                post.editPost()
+                let uploadPostController = UploadPostVC()
+                let navigationController = UINavigationController(rootViewController: uploadPostController)
+                uploadPostController.inEditMode = true
+                uploadPostController.postToEdit = post
+                uploadPostController.uploadAction = UploadPostVC.UploadAction(index: 1)
+                navigationController.modalPresentationStyle = .overFullScreen
+                self.present(navigationController, animated: true, completion: nil)
+                
+            }))
+            
+            alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+            
+            present(alertController, animated: true, completion: nil)
+        }
+        
     }
     
     func configureLikesLabel(with likes: Int, cell: FeedCell) {
@@ -107,7 +158,6 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, Fe
         guard let post = cell.post else { return }
         
         if post.didLike {
-            // handle unlike post
             
             // double tap again not remove the like
             if !isDoubleTap {
@@ -195,16 +245,14 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, Fe
     }
     
     func configureNavigationBar() {
-        
-        if !viewSinglePost {
-            self.navigationItem.leftBarButtonItem = UIBarButtonItem(title: "Logout", style: .plain, target: self, action: #selector(handleLogout))
-        }
+
         self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "send2"), style: .plain, target: self, action: #selector(handleShowMessages))
         self.navigationItem.title = "Feed"
     }
     
     @objc func handleRefreshControl() {
         posts.removeAll()
+        self.currentKey = nil
         fetchPosts()
         collectionView.reloadData()
     }
@@ -253,19 +301,43 @@ class FeedVC: UICollectionViewController, UICollectionViewDelegateFlowLayout, Fe
         
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
         
-        USER_FEED_REF.child(currentUid).observe(.childAdded) { snapshot in
-            let postId = snapshot.key
-            Database.fetchPost(with: postId, completion: { post in
-                self.posts.append(post)
-                self.posts.sort(by: { (post1, post2) -> Bool in
-                    return post1.creationDate > post2.creationDate
-                })
-                
-                // collectionView stop refreshing
+        if currentKey == nil {
+            USER_FEED_REF.child(currentUid).queryLimited(toLast: 5).observeSingleEvent(of: .value, with: { snapshot in
                 self.collectionView.refreshControl?.endRefreshing()
-                self.collectionView.reloadData()
+                
+                guard let first = snapshot.children.allObjects.first as? DataSnapshot,
+                      let allObjects = snapshot.children.allObjects as? [DataSnapshot] else { return }
+                
+                allObjects.forEach { snapshot in
+                    let postId = snapshot.key
+                    self.fetchPost(withPostId: postId)
+                }
+                self.currentKey = first.key
+            })
+        } else {
+            USER_FEED_REF.child(currentUid).queryOrderedByKey().queryEnding(atValue: self.currentKey).queryLimited(toLast: 6).observeSingleEvent(of: .value, with: { snapshot in
+                guard let first = snapshot.children.allObjects.first as? DataSnapshot,
+                      let allObjects = snapshot.children.allObjects as? [DataSnapshot] else { return }
+                allObjects.forEach({ snapshot in
+                    let postId = snapshot.key
+                    if postId != self.currentKey {
+                        self.fetchPost(withPostId: postId)
+                    }
+                })
+                self.currentKey = first.key
             })
         }
+    }
+    
+    func fetchPost(withPostId postId: String) {
+        Database.fetchPost(with: postId, completion: { post in
+            self.posts.append(post)
+            
+            self.posts.sort(by: { (post1, post2) -> Bool in
+                return post1.creationDate > post2.creationDate
+            })
+            self.collectionView.reloadData()
+        })
     }
     
 }

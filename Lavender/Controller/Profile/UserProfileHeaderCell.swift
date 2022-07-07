@@ -13,15 +13,25 @@ class UserProfileHeaderCell: UICollectionViewCell {
     // MARK: Properties
     
     var delegate: UserProfileHeaderDelegate?
-    
     var user: User? {
         didSet {
             configureEditProfileFollowButton()
             setUserStats(for: user)
             let fullname = user?.name
             nameLabel.text = fullname
-            guard let profileImageUrl = user?.profileImage else { return }
-            profileImageView.loadImage(with: profileImageUrl)
+            
+            if let profileImageUrl = user?.profileImage, profileImageUrl != "" {
+                self.profileImageView.loadImage(with: profileImageUrl)
+            } else {
+                self.profileImageView.image = UIImage(named: "user_default")
+            }
+            
+        }
+    }
+    
+    var postCount: Int? {
+        didSet {
+            configPostLabel()
         }
     }
     
@@ -43,9 +53,6 @@ class UserProfileHeaderCell: UICollectionViewCell {
         let label = UILabel()
         label.numberOfLines = 0
         label.textAlignment = .center
-        let attributedText = NSMutableAttributedString(string: "5\n", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14)])
-        attributedText.append(NSAttributedString(string: "posts", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
-        label.attributedText = attributedText
         return label
     }()
     
@@ -148,6 +155,14 @@ class UserProfileHeaderCell: UICollectionViewCell {
     func setUserStats(for user: User?) {
 
         delegate?.setUserStats(for: self)
+    }
+    
+    func configPostLabel() {
+        if let postCount = postCount {
+            let attributedText = NSMutableAttributedString(string: "\(postCount)\n", attributes: [NSAttributedString.Key.font : UIFont.boldSystemFont(ofSize: 14)])
+            attributedText.append(NSAttributedString(string: "posts", attributes: [NSAttributedString.Key.font: UIFont.boldSystemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray]))
+            postLabel.attributedText = attributedText
+        }
     }
     
     func configureEditProfileFollowButton() {

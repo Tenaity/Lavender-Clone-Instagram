@@ -3,7 +3,59 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "closure #1 in closure #1 in closure #1 in UserProfileVC.fetchPosts():UserProfileVC.swift">
+      </ContextState>
+      <ContextState
+         contextName = "Post.adjustLike(addLike:):Post.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "likes">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #2 in Post.adjustLike(addLike:completion:):Post.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "snapshot.value">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in closure #1 in closure #1 in MainTabVC.observeNotifications():MainTabVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "snapshot.value">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "closure #2 in closure #1 in UserProfileVC.fetchPosts():UserProfileVC.swift">
+      </ContextState>
+      <ContextState
+         contextName = "UserProfileVC.collectionView(_:viewForSupplementaryElementOfKind:at:):UserProfileVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "posts">
+            </PersistentString>
+            <PersistentString
+               value = "posts.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "MessengerCell.message.didset:MessengerCell.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "message?.messageText">
+            </PersistentString>
+            <PersistentString
+               value = "message?.creatitonDate">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "FeedVC.collectionView(_:cellForItemAt:):FeedVC.swift">
       </ContextState>
       <ContextState
          contextName = "FollowVC.handleFollowTapped(for:):FollowVC.swift">
@@ -38,31 +90,6 @@
             </PersistentString>
             <PersistentString
                value = "view.frame.width">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #1 in closure #1 in closure #1 in UserProfileVC.fetchPosts():UserProfileVC.swift">
-      </ContextState>
-      <ContextState
-         contextName = "FeedVC.collectionView(_:cellForItemAt:):FeedVC.swift">
-      </ContextState>
-      <ContextState
-         contextName = "MessengerCell.message.didset:MessengerCell.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "message?.messageText">
-            </PersistentString>
-            <PersistentString
-               value = "message?.creatitonDate">
-            </PersistentString>
-         </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "Post.adjustLike(addLike:):Post.swift">
-         <PersistentStrings>
-            <PersistentString
-               value = "likes">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -22,29 +22,35 @@ class FeedCell: UICollectionViewCell {
                   let likes = post?.likes
             else { return }
             Database.fetchUser(with: ownerUid) { user in
-                self.profileImageView.loadImage(with: user.profileImage)
+                if let profileImageUrl = user.profileImage, profileImageUrl != "" {
+                    self.profileImageView.loadImage(with: profileImageUrl)
+                } else {
+                    self.profileImageView.image = UIImage(named: "user_default")
+                }
                 self.usernameButton.setTitle(user.username, for: .normal)
                 self.configPostCaption(user: user)
             }
-            postImageView.loadImage(with: imageUrl)
+            
             if likes > 1 {
                 likesLabel.text = "\(likes) likes"
             } else {
                 likesLabel.text = "\(likes) like"
             }
+            
+            postImageView.loadImage(with: imageUrl)
             configureLikeButton()
         }
     }
     
-    let profileImageView: CustomImageView = {
+    lazy var profileImageView: CustomImageView = {
         let iv = CustomImageView()
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
-        iv.backgroundColor = .lightGray
+        iv.backgroundColor = UIColor.rgbNormal()
         return iv
     }()
     
-    let usernameButton: UIButton = {
+    lazy var usernameButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Username", for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -53,7 +59,7 @@ class FeedCell: UICollectionViewCell {
         return button
     }()
     
-    let optionsButton: UIButton = {
+    lazy var optionsButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("...", for: .normal)
         button.setTitleColor(.black, for: .normal)
@@ -66,7 +72,7 @@ class FeedCell: UICollectionViewCell {
         let iv = CustomImageView()
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
-        iv.backgroundColor = .lightGray
+        iv.backgroundColor = UIColor.rgbNormal()
         let likeTap = UITapGestureRecognizer(target: self, action: #selector(handleDoubleTap))
         likeTap.numberOfTapsRequired = 2
         iv.isUserInteractionEnabled = true
@@ -74,40 +80,39 @@ class FeedCell: UICollectionViewCell {
         return iv
     }()
     
-    let likeButton: UIButton = {
+    lazy var likeButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "like_unselected"), for: .normal)
-        button.tintColor = .black
+        button.tintColor = UIColor.rgbPrimary()
         button.addTarget(self, action: #selector(handleLikeTapped), for: .touchUpInside)
         return button
     }()
     
-    let commentButton: UIButton = {
+    lazy var commentButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "comment"), for: .normal)
-        button.tintColor = .black
+        button.tintColor = UIColor.rgbPrimary()
         button.addTarget(self, action: #selector(handleCommentTapped), for: .touchUpInside)
         return button
     }()
     
-    let messageButton: UIButton = {
+    lazy var messageButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "send2"), for: .normal)
-        button.tintColor = .black
+        button.tintColor = UIColor.rgbPrimary()
         return button
     }()
     
-    let savePostButton: UIButton = {
+    lazy var savePostButton: UIButton = {
         let button = UIButton(type: .system)
         button.setImage(UIImage(named: "ribbon"), for: .normal)
-        button.tintColor = .black
+        button.tintColor = UIColor.rgbPrimary()
         return button
     }()
     
     lazy var likesLabel: UILabel = {
         let label = UILabel()
         label.font = UIFont.boldSystemFont(ofSize: 12)
-        label.text = "3 likes"
         let likeTap = UITapGestureRecognizer(target: self, action: #selector(handleShowLikes))
         likeTap.numberOfTapsRequired = 1
         label.isUserInteractionEnabled = true
@@ -123,7 +128,7 @@ class FeedCell: UICollectionViewCell {
     let postTimeLabel: UILabel = {
         let label = UILabel()
         label.textColor = .lightGray
-        label.font = UIFont.boldSystemFont(ofSize: 12)
+        label.font = UIFont.boldSystemFont(ofSize: 8)
         return label
     }()
     
@@ -217,7 +222,7 @@ class FeedCell: UICollectionViewCell {
             captionLabel.numberOfLines = 1
         }
         
-        postTimeLabel.text = "2 Day"
+        postTimeLabel.text = post.creationDate.timeAgoToDisplay()
     }
     
     func configActionButton() {

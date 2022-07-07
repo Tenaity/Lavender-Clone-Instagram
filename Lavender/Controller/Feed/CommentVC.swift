@@ -18,44 +18,17 @@ class CommentVC: UICollectionViewController, UICollectionViewDelegateFlowLayout 
     var comments = [Comment]()
     var post: Post?
     
-    lazy var containerView: UIView = {
-        let containerView = UIView()
-        containerView.frame = CGRect(x: 0, y: 0, width: 100, height: 50)
-        containerView.addSubview(commentTextField)
-        containerView.addSubview(postButton)
+    lazy var containerView: CommentInputAccessoryView = {
         
-        commentTextField.anchor(top: containerView.topAnchor, left: containerView.leftAnchor, bottom: containerView.bottomAnchor, right: postButton.leftAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 8, width: 0, height: 0)
+        let frame = CGRect(x: 0, y: 0, width: view.frame.width, height: 50)
         
+        let containerView = CommentInputAccessoryView(frame: frame)
         
-        
-        postButton.anchor(top: nil, left: commentTextField.rightAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 8, width: 50, height: 0)
-        postButton.centerYAnchor.constraint(equalTo: containerView.centerYAnchor).isActive = true
-        
-        let separatorView = UIView()
-        separatorView.backgroundColor = UIColor(red: 230/255, green: 230/255, blue: 230/255, alpha: 1)
-        
-        containerView.addSubview(separatorView)
-        separatorView.anchor(top: containerView.topAnchor, left: containerView.leftAnchor, bottom: nil, right: containerView.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 0.5)
+        containerView.delegate = self
         
         containerView.backgroundColor = .white
         
         return containerView
-    }()
-    
-    let postButton: UIButton = {
-        let button = UIButton(type: .system)
-        button.setTitle("Post", for: .normal)
-        button.setTitleColor(.black, for: .normal)
-        button.titleLabel?.font = UIFont.boldSystemFont(ofSize: 14)
-        button.addTarget(self, action: #selector(handleUploadComment), for: .touchUpInside)
-        return button
-    }()
-    
-    let commentTextField: UITextField = {
-        let tf = UITextField()
-        tf.placeholder = "Enter comment.."
-        tf.font = UIFont.systemFont(ofSize: 14)
-        return tf
     }()
     
     override func viewDidLoad() {
@@ -133,27 +106,7 @@ class CommentVC: UICollectionViewController, UICollectionViewDelegateFlowLayout 
         return comments.count
     }
     
-    // MARK: Handler
-    
-    @objc func handleUploadComment() {
-        guard let postId = self.post?.postId,
-              let commentText = commentTextField.text,
-              let uid = Auth.auth().currentUser?.uid else { return }
-        let creationDate = Int(NSDate().timeIntervalSince1970)
-        
-        let values = ["commentText": commentText,
-                      "creationDate": creationDate,
-                      "uid": uid] as [String : Any]
-        
-        COMMENT_REF.child(postId).childByAutoId().updateChildValues(values) { [weak self ](err, ref) in
-            guard let self = self else { return }
-            if commentText.contains("@") {
-                self.uploadMentionNotification(forPostId: postId, withText: commentText, isForComment: true)
-            }
-            self.uploadCommentNotificationToServer()
-            self.commentTextField.text = nil
-        }
-    }
+    // MARK: Handler  
     
     func handleHashtagTapped(forCell cell: CommentCell) {
         cell.commentLabel.handleHashtagTap { [weak self] hashtag in
@@ -208,6 +161,45 @@ class CommentVC: UICollectionViewController, UICollectionViewDelegateFlowLayout 
         // upload commment notification to server
         if uid != currentUid {
             NOTIFICATIONS_REF.child(uid).childByAutoId().updateChildValues(values)
+        }
+    }
+}
+
+extension CommentVC: CommentInputAccessoryViewDelegate {
+    func didSubmit(forComment comment: String) {
+        
+        guard let postId = self.post?.postId,
+              let uid = Auth.auth().currentUser?.uid else { return }
+        let creationDate = Int(NSDate().timeIntervalSince1970)
+        
+        var comment = comment.lowercased()
+        
+        let arr = ["sex", "xxx", "cac", "lon", "pussy", "dick", "dit", "fuck", "du", "chich"]
+        
+        var newComment = ""
+        
+        arr.forEach { item in
+            if comment.contains(item) {
+                newComment = comment.replacingOccurrences(of: item, with: "**")
+            }
+        }
+        
+        if newComment.isEmpty {
+            newComment = comment
+        }
+
+        let values = ["commentText": newComment,
+                      "creationDate": creationDate,
+                      "uid": uid] as [String : Any]
+
+        COMMENT_REF.child(postId).childByAutoId().updateChildValues(values) { [weak self ](err, ref) in
+            guard let self = self else { return }
+            if comment.contains("@") {
+                self.uploadMentionNotification(forPostId: postId, withText: comment, isForComment: true)
+            }
+            self.uploadCommentNotificationToServer()
+            
+            self.containerView.clearCommentTextView()
         }
     }
 }

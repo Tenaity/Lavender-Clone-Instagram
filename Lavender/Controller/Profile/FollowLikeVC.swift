@@ -157,13 +157,13 @@ extension FollowLikeVC: FollowCellDelegate {
             cell.followButton.setTitle("Follow", for: .normal)
             cell.followButton.setTitleColor(.white, for: .normal)
             cell.followButton.layer.borderWidth = 0
-            cell.followButton.backgroundColor = UIColor(red: 17/255, green: 154/255, blue: 237/255, alpha: 1)
+            cell.followButton.backgroundColor = UIColor.rgbPrimary()
         } else {
             user.follow()
             cell.followButton.setTitle("Following", for: .normal)
             cell.followButton.setTitleColor(.black, for: .normal)
             cell.followButton.layer.borderWidth = 0.5
-            cell.followButton.layer.borderColor = UIColor.lightGray.cgColor
+            cell.followButton.layer.borderColor = UIColor.rgbPrimary().cgColor
             cell.followButton.backgroundColor = .white
         }
     }

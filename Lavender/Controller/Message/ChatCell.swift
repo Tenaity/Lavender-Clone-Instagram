@@ -24,15 +24,18 @@ class ChatCell: UICollectionViewCell {
             guard let chatPartnerId = message?.getChatPartnerId() else { return }
             
             Database.fetchUser(with: chatPartnerId, completion: { user in
-                guard let profileImageUrl = user.profileImage else { return }
-                self.profileImageView.loadImage(with: profileImageUrl )
+                if let profileImageUrl = user.profileImage, profileImageUrl != "" {
+                    self.profileImageView.loadImage(with: profileImageUrl)
+                } else {
+                    self.profileImageView.image = UIImage(named: "user_default")
+                }
             })
         }
     }
     
     let bubbleView: UIView = {
         let view = UIView()
-        view.backgroundColor = UIColor.rgb(red: 0, green: 137, blue: 249)
+//        view.backgroundColor = UIColor.rgb(red: 0, green: 137, blue: 249)
         view.layer.cornerRadius = 16
         view.layer.masksToBounds = true
         view.translatesAutoresizingMaskIntoConstraints = false

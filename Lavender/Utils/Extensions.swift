@@ -9,8 +9,67 @@ import UIKit
 import Firebase
 
 extension UIColor {
-    static func rgb(red: CGFloat, green: CGFloat, blue: CGFloat) -> UIColor {
-        return UIColor(red: red/255, green: green/255, blue: blue/255, alpha: 1)
+    static func rgbPrimary() -> UIColor {
+        return UIColor(red: 181/255, green: 126/255, blue: 220/255, alpha: 1)
+    }
+    
+    static func rgbNormal() -> UIColor {
+        return UIColor(red: 220/255, green: 208/255, blue: 255/255, alpha: 1)
+    }
+}
+
+extension UIView {
+
+    func applyGradient(colours: [UIColor]) -> CAGradientLayer {
+        return self.applyGradient(colours: colours, locations: nil)
+    }
+
+
+    func applyGradient(colours: [UIColor], locations: [NSNumber]?) -> CAGradientLayer {
+        let gradient: CAGradientLayer = CAGradientLayer()
+        gradient.frame = self.bounds
+        gradient.colors = colours.map { $0.cgColor }
+        gradient.locations = locations
+        self.layer.insertSublayer(gradient, at: 0)
+        return gradient
+    }
+}
+
+extension Date {
+    func timeAgoToDisplay() -> String {
+        
+        let secondsAgo = Int(Date().timeIntervalSince(self))
+
+        let minute = 60
+        let hour = 60 * minute
+        let day = 24 * hour
+        let week = 7 * day
+        let month = 4 * week
+        
+        let quotient: Int
+        let unit: String
+        
+        if secondsAgo < minute {
+            quotient = secondsAgo
+            unit = "SECONDS"
+        } else if secondsAgo < hour {
+            quotient = secondsAgo / minute
+            unit = "MIN"
+        } else if secondsAgo < day {
+            quotient = secondsAgo / hour
+            unit = "HOUR"
+        } else if secondsAgo < week{
+            quotient = secondsAgo / day
+            unit = "DAY"
+        } else if secondsAgo < month {
+            quotient = secondsAgo / week
+            unit = "WEEK"
+        } else {
+            quotient = secondsAgo / month
+            unit = "MONTH"
+        }
+        
+        return "\(quotient) \(unit)\(quotient == 1 ? "" : "S") AGO"
     }
 }
 

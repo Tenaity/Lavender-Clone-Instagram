@@ -39,6 +39,8 @@ class SearchVC: UITableViewController, UISearchBarDelegate, UICollectionViewDele
         
         configSearchBar()
         
+        configRefreshControl()
+        
         configCollectionView()
         
         // clear separator tableview
@@ -90,6 +92,21 @@ class SearchVC: UITableViewController, UISearchBarDelegate, UICollectionViewDele
     }
     
     // MARK: Handlers
+    
+    @objc func handleRefreshControl() {
+        posts.removeAll()
+//        self.currentKey = nil
+        fetchPosts()
+        collectionView.reloadData()
+        self.tableView.refreshControl?.endRefreshing()
+    }
+    
+    func configRefreshControl() {
+        // configure refresh control
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+        tableView.refreshControl = refreshControl
+    }
     
     func configNavController() {
         navigationItem.title = "Explore"

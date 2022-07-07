@@ -11,11 +11,14 @@ class NewMessageCell: UITableViewCell {
     
     var user: User? {
         didSet {
-            guard let profileImage = user?.profileImage,
-                  let username = user?.username,
+            guard let username = user?.username,
                   let fullname = user?.name else { return }
             
-            profileImageView.loadImage(with: profileImage)
+            if let profileImageUrl = user?.profileImage, profileImageUrl != "" {
+                self.profileImageView.loadImage(with: profileImageUrl)
+            } else {
+                self.profileImageView.image = UIImage(named: "user_default")
+            }
             textLabel?.text = username
             detailTextLabel?.text = fullname
         }

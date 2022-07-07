@@ -8,12 +8,18 @@
 import UIKit
 import Firebase
 
-class MainTabVC: UITabBarController, UITabBarControllerDelegate {
+class MainTabVC: UITabBarController, UITabBarControllerDelegate, UIImagePickerControllerDelegate, UINavigationControllerDelegate {
     
     // MARK: Properties
     
     let dot = UIView()
     var notificationIDs = [String]()
+    
+    // handle image
+    var imagePicker = UIImagePickerController()
+    // handle image camera
+    var postCameraImageView: UIImageView?
+    
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,7 +44,7 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
         let uploadPostVC = configureNavController(unselectedImage: #imageLiteral(resourceName: "plus_unselected"), selectedImage: #imageLiteral(resourceName: "plus_unselected"))
         
         viewControllers = [feedVC, searchVC, uploadPostVC, notificationsVC, profileVC]
-        tabBar.tintColor = .black
+        tabBar.tintColor = UIColor.rgbPrimary()
     }
     
     func configNotificationDot() {
@@ -48,7 +54,7 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
             let tabBarHeight = tabBar.frame.height
             
             
-            if UIScreen.main.nativeBounds.height == 2532 {
+            if UIScreen.main.nativeBounds.height == 1792 {
                 // handle for iphone 12
                 dot.frame = CGRect(x: view.frame.width / 5 * 3, y: view.frame.height - tabBarHeight, width: 6, height: 6)
             } else {
@@ -72,9 +78,10 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
         if index == 2 {
             let selectImageVC = SelectImageVC(collectionViewLayout: UICollectionViewFlowLayout())
             let navController = UINavigationController(rootViewController: selectImageVC)
-            navController.navigationBar.tintColor = .black
+            navController.navigationBar.tintColor = UIColor.rgbPrimary()
             navController.modalPresentationStyle = .fullScreen
             present(navController, animated: true, completion: nil)
+            
             return false
         } else if index == 3 {
             dot.isHidden = true
@@ -104,7 +111,9 @@ class MainTabVC: UITabBarController, UITabBarControllerDelegate {
     }
     
     func observeNotifications() {
+        
         guard let currentUid = Auth.auth().currentUser?.uid else { return }
+        
         self.notificationIDs.removeAll()
         
         NOTIFICATIONS_REF.child(currentUid).observeSingleEvent(of: .value) { snapshot in

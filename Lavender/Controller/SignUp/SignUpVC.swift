@@ -14,12 +14,23 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     
     var imageSelected: Bool = false
     
-    let plusPhotoBtn: UIButton = {
-        let button = UIButton(type: .system)
-        button.setImage(UIImage(named: "plus_photo"), for: .normal)
-        button.addTarget(self, action: #selector(handleSelectProfilePhoto), for: .touchUpInside)
-        return button
+    let logoContainner: UIView = {
+        let view = UIView()
+        let logoImage = UIImageView(image: UIImage(named: "banner1"))
+        logoImage.contentMode = .scaleAspectFill
+        view.addSubview(logoImage)
+        logoImage.anchor(top: view.topAnchor, left: nil, bottom: nil, right: nil, paddingTop: 100, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 250, height: 50)
+        logoImage.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        logoImage.centerYAnchor.constraint(equalTo: view.centerYAnchor).isActive = true
+        return view
     }()
+    
+//    let plusPhotoBtn: UIButton = {
+//        let button = UIButton(type: .system)
+//        button.setBackgroundImage(UIImage(named: "plus_purple2"), for: .normal)
+//        button.addTarget(self, action: #selector(handleSelectProfilePhoto), for: .touchUpInside)
+//        return button
+//    }()
     
     let emailTextField: UITextField = {
         let tf = UITextField()
@@ -62,12 +73,12 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         return tf
     }()
     
-    let signUpButton: UIButton = {
+    lazy var signUpButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitle("Sign Up", for: .normal)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = UIColor(red: 149/255, green: 204/255, blue: 244/255, alpha: 1)
-        button.layer.cornerRadius = 5
+        button.backgroundColor = UIColor.rgbNormal()
+        button.layer.cornerRadius = 32 / 2
         button.addTarget(self, action: #selector(handleSignUp), for: .touchUpInside)
         button.isEnabled = false
         return button
@@ -76,7 +87,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
     let alreadyHaveAccountButton: UIButton = {
         let button = UIButton(type: .system)
         let attributedTitle = NSMutableAttributedString(string: "Already have an account?   ", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.lightGray])
-        attributedTitle.append(NSAttributedString(string: "Sign In", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor(red: 17/255, green: 154/255, blue: 237/255, alpha: 1)]))
+        attributedTitle.append(NSAttributedString(string: "Sign In", attributes: [NSAttributedString.Key.font: UIFont.systemFont(ofSize: 14), NSAttributedString.Key.foregroundColor: UIColor.rgbPrimary()]))
         button.setAttributedTitle(attributedTitle, for: .normal)
         button.addTarget(self, action: #selector(handleShowSignUp), for: .touchUpInside)
         return button
@@ -88,8 +99,64 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         navigationController?.popViewController(animated: true)
     }
     
+//    @objc func handleSignUp() {
+//        // properties
+//        guard
+//            let email = emailTextField.text,
+//            let password = passwordTextField.text,
+//            let fullName = fullNameTextField.text,
+//            let username = userNameTextField.text?.lowercased()
+//        else { return }
+//
+//        Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
+//
+//            // handle error
+//            if let error = error {
+//                print("Failed to create user with error: ", error.localizedDescription)
+//                return
+//            }
+//
+//            // set profile image
+//            guard let profileImg = self.plusPhotoBtn.imageView?.image else { return }
+//
+//            // upload data
+//            guard let updoadData = profileImg.jpegData(compressionQuality: 0.3) else { return }
+//
+//            // place image in firebase storage
+//            let filename = NSUUID().uuidString
+//            DispatchQueue.main.async {
+//                let storageRef = Storage.storage().reference().child("profile_images").child(filename)
+//                storageRef.putData(updoadData, metadata: nil) { (metadata, error) in
+//                    guard let metadata = metadata else {
+//                        print("an error occured")
+//                        return
+//                    }
+//                    // Metadata contains file metadata such as size and content-type.
+//                    let size = metadata.size
+//                    print("Image size: \(size)")
+//                    storageRef.downloadURL(completion: { (url, err) in
+//                        guard let downloadURL = url else {
+//                            print("an error ocured")
+//                            return
+//                        }
+//                        print("Successfully uploaded profile image into Firebase storage with URL:", downloadURL)
+//
+//                        let downloadURLString = downloadURL.absoluteString
+//                        let dictionaryValues = ["name": fullName,
+//                                                "username": username,
+//                                                "profileImageUrl": downloadURLString]
+//                        let values = [user?.user.uid :dictionaryValues]
+//
+//                        Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: { (err, reference) in
+//                        })
+//                    })
+//                }
+//            }
+//        }
+//    }
+    
     @objc func handleSignUp() {
-        // properties
+        
         guard
             let email = emailTextField.text,
             let password = passwordTextField.text,
@@ -98,49 +165,28 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         else { return }
         
         Auth.auth().createUser(withEmail: email, password: password) { (user, error) in
-            
+
             // handle error
             if let error = error {
                 print("Failed to create user with error: ", error.localizedDescription)
                 return
             }
+
+            let dictionaryValues = ["name": fullName,
+                                    "username": username,
+                                    "profileImageUrl": ""]
             
-            // set profile image
-            guard let profileImg = self.plusPhotoBtn.imageView?.image else { return }
-            
-            // upload data
-            guard let updoadData = profileImg.jpegData(compressionQuality: 0.3) else { return }
-            
-            // place image in firebase storage
-            let filename = NSUUID().uuidString
-            DispatchQueue.main.async {
-                let storageRef = Storage.storage().reference().child("profile_images").child(filename)
-                storageRef.putData(updoadData, metadata: nil) { (metadata, error) in
-                    guard let metadata = metadata else {
-                        print("an error occured")
-                        return
-                    }
-                    // Metadata contains file metadata such as size and content-type.
-                    let size = metadata.size
-                    print("Image size: \(size)")
-                    storageRef.downloadURL(completion: { (url, err) in
-                        guard let downloadURL = url else {
-                            print("an error ocured")
-                            return
-                        }
-                        print("Successfully uploaded profile image into Firebase storage with URL:", downloadURL)
-                        
-                        let downloadURLString = downloadURL.absoluteString
-                        let dictionaryValues = ["name": fullName,
-                                                "username": username,
-                                                "profileImageUrl": downloadURLString]
-                        let values = [user?.user.uid :dictionaryValues]
-                        
-                        Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: { (err, reference) in
-                        })
-                    })
-                }
-            }
+            let values = [user?.user.uid :dictionaryValues]
+
+            Database.database().reference().child("users").updateChildValues(values, withCompletionBlock: { (err, reference) in
+                guard let mainTabVC = UIApplication.shared.connectedScenes
+                        .filter({$0.activationState == .foregroundActive})
+                        .compactMap({$0 as? UIWindowScene})
+                        .first?.windows
+                        .filter({$0.isKeyWindow}).first?.rootViewController as? MainTabVC else { return }
+                mainTabVC.configViewControllers()
+                self.dismiss(animated: true, completion: nil)
+            })
         }
     }
     
@@ -149,56 +195,65 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
             emailTextField.hasText,
             passwordTextField.hasText,
             fullNameTextField.hasText,
-            userNameTextField.hasText,
-            imageSelected == true
+            userNameTextField.hasText
         else {
             signUpButton.isEnabled = false
-            signUpButton.backgroundColor = UIColor(red: 149/255, green: 204/255, blue: 244/255, alpha: 1)
+            signUpButton.backgroundColor = UIColor.rgbNormal()
             return
         }
         
         signUpButton.isEnabled = true
-        signUpButton.backgroundColor = UIColor(red: 17/255, green: 154/255, blue: 237/255, alpha: 1)
+        signUpButton.backgroundColor = UIColor.rgbPrimary()
     }
     
-    @objc func handleSelectProfilePhoto() {
-        
-        // configure image picker
-        let imagePicker = UIImagePickerController()
-        imagePicker.delegate = self
-        imagePicker.allowsEditing = true
-        
-        // present image picker
-        self.present(imagePicker, animated: true, completion: nil)
-    }
-    
-    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
-        // selected image
-        guard let profileImage = info[.editedImage] as? UIImage else {
-            imageSelected = false
-            return
-        }
-        
-        // set imageSelected to true
-        imageSelected = true
-        
-        // configure plusPhotoBtn with selected image
-        plusPhotoBtn.layer.cornerRadius = plusPhotoBtn.frame.width / 2
-        plusPhotoBtn.layer.masksToBounds = true
-        plusPhotoBtn.layer.borderColor = UIColor.black.cgColor
-        plusPhotoBtn.layer.borderWidth = 2
-        plusPhotoBtn.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
-        self.dismiss(animated: true, completion: nil)
-    }
+//    @objc func handleSelectProfilePhoto() {
+//
+//        // configure image picker
+//        let imagePicker = UIImagePickerController()
+//        imagePicker.delegate = self
+//        imagePicker.allowsEditing = true
+//
+//        // present image picker
+//        imagePicker.modalPresentationStyle = .overFullScreen
+//        self.present(imagePicker, animated: true, completion: nil)
+//    }
+//
+//    func imagePickerController(_ picker: UIImagePickerController, didFinishPickingMediaWithInfo info: [UIImagePickerController.InfoKey : Any]) {
+//        // selected image
+//        guard let profileImage = info[.editedImage] as? UIImage else {
+//            imageSelected = false
+//            return
+//        }
+//
+//        // set imageSelected to true
+//        imageSelected = true
+//
+//        // configure plusPhotoBtn with selected image
+//
+//        // MARK: photo
+//        plusPhotoBtn.layer.cornerRadius = plusPhotoBtn.frame.width / 2
+//        plusPhotoBtn.layer.masksToBounds = true
+//        plusPhotoBtn.layer.borderColor = UIColor.black.cgColor
+//        plusPhotoBtn.layer.borderWidth = 2
+//        plusPhotoBtn.setImage(profileImage.withRenderingMode(.alwaysOriginal), for: .normal)
+//
+//        self.dismiss(animated: true, completion: nil)
+//    }
     
     // MARK: Init
     
     override func viewDidLoad() {
         super.viewDidLoad()
         view.backgroundColor = .white
-        view.addSubview(plusPhotoBtn)
-        plusPhotoBtn.anchor(top: view.topAnchor, left: nil, bottom: nil, right: nil, paddingTop: 40, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 140, height: 140)
-        plusPhotoBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+//        view.addSubview(plusPhotoBtn)
+//        plusPhotoBtn.anchor(top: view.topAnchor, left: nil, bottom: nil, right: nil, paddingTop: 40, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 140, height: 140)
+//        plusPhotoBtn.centerXAnchor.constraint(equalTo: view.centerXAnchor).isActive = true
+        
+        
+        view.addSubview(logoContainner)
+        logoContainner.anchor(top: view.topAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 100, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 150)
+        
         configViewComponents()
         view.addSubview(alreadyHaveAccountButton)
         alreadyHaveAccountButton.anchor(top: nil, left: view.leftAnchor, bottom: view.bottomAnchor, right: view.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 0, width: 0, height: 50)
@@ -210,6 +265,7 @@ class SignUpVC: UIViewController, UIImagePickerControllerDelegate, UINavigationC
         stackView.spacing = 10
         stackView.distribution = .fillEqually
         view.addSubview(stackView)
-        stackView.anchor(top: plusPhotoBtn.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 40, paddingBottom: 0, paddingRight: 40, width: 0, height: 240)
+        
+        stackView.anchor(top: logoContainner.bottomAnchor, left: view.leftAnchor, bottom: nil, right: view.rightAnchor, paddingTop: 24, paddingLeft: 40, paddingBottom: 0, paddingRight: 40, width: 0, height: 200)
     }
 }

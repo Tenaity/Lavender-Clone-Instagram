@@ -13,10 +13,13 @@ class CommentCell: UICollectionViewCell {
     var comment: Comment? {
         didSet {
             
-            guard let user = comment?.user,
-                  let profileImageUrl = user.profileImage else { return }
+            guard let user = comment?.user else { return }
             
-            self.profileImageView.loadImage(with: profileImageUrl)
+            if let profileImageUrl = user.profileImage, profileImageUrl != "" {
+                self.profileImageView.loadImage(with: profileImageUrl)
+            } else {
+                self.profileImageView.image = UIImage(named: "user_default")
+            }
             configCommentLabel()
         }
     }
@@ -62,10 +65,8 @@ class CommentCell: UICollectionViewCell {
     
     func configCommentLabel() {
         guard let user = comment?.user,
-              let profileImageUrl = user.profileImage,
               let username = user.username,
-              let commentText = comment?.commentText,
-              let commentTimeStamp = configCommentTimeStamp() else { return }
+              let commentText = comment?.commentText else { return }
         
         let customType = ActiveType.custom(pattern: "^\(username)\\b")
         

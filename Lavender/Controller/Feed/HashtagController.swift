@@ -21,6 +21,7 @@ class HashtagController: UICollectionViewController, UICollectionViewDelegateFlo
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        collectionView.backgroundColor = .white
         configNavigationBar()
         collectionView.register(HashtagCell.self, forCellWithReuseIdentifier: "HashtagCell")
         fetchPosts()

@@ -20,7 +20,7 @@ class UserPostCell: UICollectionViewCell {
         let iv = CustomImageView()
         iv.contentMode = .scaleAspectFill
         iv.clipsToBounds = true
-        iv.backgroundColor = .lightGray
+        iv.backgroundColor = UIColor.rgbNormal()
         return iv
     }()
     

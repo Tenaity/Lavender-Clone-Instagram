@@ -73,9 +73,14 @@ class NotificationCell: UITableViewCell {
     
     func configureNotificationType() {
         guard let notification = self.notification,
-              let user = notification.user,
-              let profileImageUrl = user.profileImage else { return }
-        profileImageView.loadImage(with: profileImageUrl)
+              let user = notification.user else { return }
+
+        if let profileImageUrl = user.profileImage, profileImageUrl != "" {
+            self.profileImageView.loadImage(with: profileImageUrl)
+        } else {
+            self.profileImageView.image = UIImage(named: "user_default")
+        }
+        
         if notification.notificationType != .Follow {
             // notification type is comment or like
             addSubview(postImageView)

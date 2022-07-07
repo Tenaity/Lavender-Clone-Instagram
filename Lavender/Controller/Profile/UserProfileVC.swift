@@ -7,6 +7,7 @@
 
 import UIKit
 import Firebase
+import grpc
 
 private let reuseIdentifier = "Cell"
 private let headerIdentifier = "UserProfileHeader"
@@ -17,6 +18,7 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
     
     var user: User?
     var posts = [Post]()
+
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -25,6 +27,10 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         self.collectionView.register(UserProfileHeaderCell.self, forSupplementaryViewOfKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: headerIdentifier)
         // backgound color
         self.collectionView?.backgroundColor = .white
+        
+        configRefreshControl()
+
+        self.navigationItem.rightBarButtonItem = UIBarButtonItem(image: UIImage(named: "gear"), style: .plain, target: self, action: #selector(handleLogout))
         
         // fetch user data
         if user == nil {
@@ -71,6 +77,7 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         let feedVC = FeedVC(collectionViewLayout: UICollectionViewFlowLayout())
         feedVC.viewSinglePost = true
         feedVC.post = posts[indexPath.row]
+        feedVC.userProfileController = self
         navigationController?.pushViewController(feedVC, animated: true)
     }
     
@@ -85,12 +92,48 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
         let header = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: headerIdentifier, for: indexPath) as! UserProfileHeaderCell
         // set delegate
         header.delegate = self
-        
+        header.postCount = posts.count
         // set the user in header
         header.user = user
         navigationItem.title = user?.username
         
         return header
+    }
+    
+    // MARK: Handlers
+    
+    
+    @objc func handleLogout() {
+        let alertController = UIAlertController(title: nil, message: nil, preferredStyle: .actionSheet)
+        alertController.addAction(UIAlertAction(title: "Log Out", style: .destructive, handler: { _ in
+            do {
+                try Auth.auth().signOut()
+                let loginVC = LoginVC()
+                let navController = UINavigationController(rootViewController: loginVC)
+                navController.modalPresentationStyle = .fullScreen
+                self.present(navController, animated: true, completion: nil)
+            } catch {
+                print("Fail to signout")
+            }
+        }))
+        
+        alertController.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: nil))
+        present(alertController, animated: true, completion: nil)
+    }
+    
+    @objc func handleRefreshControl() {
+        posts.removeAll()
+//        self.currentKey = nil
+        fetchPosts()
+        collectionView.reloadData()
+        self.collectionView.refreshControl?.endRefreshing()
+    }
+    
+    func configRefreshControl() {
+        // configure refresh control
+        let refreshControl = UIRefreshControl()
+        refreshControl.addTarget(self, action: #selector(handleRefreshControl), for: .valueChanged)
+        collectionView.refreshControl = refreshControl
     }
     
     // MARK: API
@@ -118,6 +161,8 @@ class UserProfileVC: UICollectionViewController, UICollectionViewDelegateFlowLay
             })
 
         }
+        
+        
     }
     
     func fetchCurrentUserData() {
@@ -185,7 +230,15 @@ extension UserProfileVC: UserProfileHeaderDelegate {
         guard let user = header.user else { return }
 
         if header.editProfileFollowButton.titleLabel?.text == "Edit Profile" {
-            print("handle edit profile")
+            let editProfileController = EditProfileController()
+            editProfileController.user = user
+            editProfileController.userProfileController = self
+            let navigationController = UINavigationController(rootViewController: editProfileController)
+            
+            navigationController.modalPresentationStyle = .overFullScreen
+            
+            self.present(navigationController, animated: true, completion: nil)
+            
         }
         else {
             user.checkIfUserIsFollowed(completion: { followed in

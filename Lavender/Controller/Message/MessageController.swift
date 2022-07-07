@@ -20,6 +20,11 @@ class MessageController: UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        self.tableView.backgroundColor = .white
+        
+        tableView.separatorColor = .none
+        tableView.separatorStyle = .none
         tableView.register(MessengerCell.self, forCellReuseIdentifier: reuseIdentifier)
         configNavigationBar()
         fetchMessages()

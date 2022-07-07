@@ -97,8 +97,6 @@ class User {
                       "uid": currentUid,
                       "type": FOLLOW_INT_VALUE] as [String: Any]
         
-        print("----> values notification follow \(values)")
-        
         NOTIFICATIONS_REF.child(self.uid).childByAutoId().updateChildValues(values)
     }
 }

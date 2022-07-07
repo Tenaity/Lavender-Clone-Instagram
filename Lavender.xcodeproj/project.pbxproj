@@ -16,6 +16,16 @@
 		781287B428636BF10011F411 /* NotificationCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781287B328636BF10011F411 /* NotificationCell.swift */; };
 		781287B62864B2050011F411 /* Notification.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781287B52864B2050011F411 /* Notification.swift */; };
 		781287B828689ECD0011F411 /* SearchPostCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 781287B728689ECD0011F411 /* SearchPostCell.swift */; };
+		782AC94B2875EEEC00E108AC /* ic_close.png in Resources */ = {isa = PBXBuildFile; fileRef = 782AC9442875EEEC00E108AC /* ic_close.png */; };
+		782AC94C2875EEEC00E108AC /* SHViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AC9452875EEEC00E108AC /* SHViewController.swift */; };
+		782AC94D2875EEEC00E108AC /* SHViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 782AC9462875EEEC00E108AC /* SHViewController.xib */; };
+		782AC94E2875EEEC00E108AC /* SHCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AC9472875EEEC00E108AC /* SHCollectionViewCell.swift */; };
+		782AC94F2875EEEC00E108AC /* SHCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 782AC9482875EEEC00E108AC /* SHCollectionViewCell.xib */; };
+		782AC9502875EEEC00E108AC /* ic_check.png in Resources */ = {isa = PBXBuildFile; fileRef = 782AC9492875EEEC00E108AC /* ic_check.png */; };
+		782AC9512875EEEC00E108AC /* PickerController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 782AC94A2875EEEC00E108AC /* PickerController.swift */; };
+		787933B9287162F90095E83D /* EditProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787933B8287162F90095E83D /* EditProfileController.swift */; };
+		787933BB28719C070095E83D /* CommentInputAccessoryView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787933BA28719C070095E83D /* CommentInputAccessoryView.swift */; };
+		787933BD28719C830095E83D /* CommentInputTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787933BC28719C830095E83D /* CommentInputTextView.swift */; };
 		787A2455286CB5A5001156B0 /* NewMessageController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787A2454286CB5A5001156B0 /* NewMessageController.swift */; };
 		787A2457286CB718001156B0 /* NewMessageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787A2456286CB718001156B0 /* NewMessageCell.swift */; };
 		787A2459286CC6A6001156B0 /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 787A2458286CC6A6001156B0 /* Message.swift */; };
@@ -64,6 +74,17 @@
 		781287B328636BF10011F411 /* NotificationCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NotificationCell.swift; sourceTree = "<group>"; };
 		781287B52864B2050011F411 /* Notification.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Notification.swift; sourceTree = "<group>"; };
 		781287B728689ECD0011F411 /* SearchPostCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPostCell.swift; sourceTree = "<group>"; };
+		782AC9442875EEEC00E108AC /* ic_close.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_close.png; sourceTree = "<group>"; };
+		782AC9452875EEEC00E108AC /* SHViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHViewController.swift; sourceTree = "<group>"; };
+		782AC9462875EEEC00E108AC /* SHViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SHViewController.xib; sourceTree = "<group>"; };
+		782AC9472875EEEC00E108AC /* SHCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SHCollectionViewCell.swift; sourceTree = "<group>"; };
+		782AC9482875EEEC00E108AC /* SHCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = SHCollectionViewCell.xib; sourceTree = "<group>"; };
+		782AC9492875EEEC00E108AC /* ic_check.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = ic_check.png; sourceTree = "<group>"; };
+		782AC94A2875EEEC00E108AC /* PickerController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PickerController.swift; sourceTree = "<group>"; };
+		787933B7286FC2FC0095E83D /* Lavender.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Lavender.entitlements; sourceTree = "<group>"; };
+		787933B8287162F90095E83D /* EditProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileController.swift; sourceTree = "<group>"; };
+		787933BA28719C070095E83D /* CommentInputAccessoryView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInputAccessoryView.swift; sourceTree = "<group>"; };
+		787933BC28719C830095E83D /* CommentInputTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CommentInputTextView.swift; sourceTree = "<group>"; };
 		787A2454286CB5A5001156B0 /* NewMessageController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageController.swift; sourceTree = "<group>"; };
 		787A2456286CB718001156B0 /* NewMessageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NewMessageCell.swift; sourceTree = "<group>"; };
 		787A2458286CC6A6001156B0 /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
@@ -139,6 +160,20 @@
 			path = Message;
 			sourceTree = "<group>";
 		};
+		782AC9432875EEEC00E108AC /* Picker Controller */ = {
+			isa = PBXGroup;
+			children = (
+				782AC9442875EEEC00E108AC /* ic_close.png */,
+				782AC9452875EEEC00E108AC /* SHViewController.swift */,
+				782AC9462875EEEC00E108AC /* SHViewController.xib */,
+				782AC9472875EEEC00E108AC /* SHCollectionViewCell.swift */,
+				782AC9482875EEEC00E108AC /* SHCollectionViewCell.xib */,
+				782AC9492875EEEC00E108AC /* ic_check.png */,
+				782AC94A2875EEEC00E108AC /* PickerController.swift */,
+			);
+			path = "Picker Controller";
+			sourceTree = "<group>";
+		};
 		78F122AB282C14E200983574 = {
 			isa = PBXGroup;
 			children = (
@@ -160,6 +195,7 @@
 		78F122B6282C14E200983574 /* Lavender */ = {
 			isa = PBXGroup;
 			children = (
+				787933B7286FC2FC0095E83D /* Lavender.entitlements */,
 				78F122D0282C1DC100983574 /* Utils */,
 				78F122CD282C16AC00983574 /* View */,
 				78F122CC282C16A100983574 /* Model */,
@@ -178,6 +214,7 @@
 		78F122CB282C169300983574 /* Controller */ = {
 			isa = PBXGroup;
 			children = (
+				782AC9432875EEEC00E108AC /* Picker Controller */,
 				780BC160286B6F8200FD82C7 /* Message */,
 				78F4DEF32833FE690055639A /* Search */,
 				78F4DEF22833FE570055639A /* UploadPost */,
@@ -247,6 +284,8 @@
 				78DEA882285EF51E006DE4EF /* CommentVC.swift */,
 				787E0120286ED513004FE3DA /* HashtagController.swift */,
 				787E0123286ED8CF004FE3DA /* HashtagCell.swift */,
+				787933BA28719C070095E83D /* CommentInputAccessoryView.swift */,
+				787933BC28719C830095E83D /* CommentInputTextView.swift */,
 			);
 			path = Feed;
 			sourceTree = "<group>";
@@ -267,6 +306,7 @@
 				78F4DEF52833FEDA0055639A /* UserProfileHeaderCell.swift */,
 				78104F48284B479F000A9042 /* FollowLikeVC.swift */,
 				78104F4C284B492A000A9042 /* FollowLikeCell.swift */,
+				787933B8287162F90095E83D /* EditProfileController.swift */,
 			);
 			path = Profile;
 			sourceTree = "<group>";
@@ -313,6 +353,7 @@
 				78F122B1282C14E200983574 /* Frameworks */,
 				78F122B2282C14E200983574 /* Resources */,
 				67257092F8F8B9DBDF8C3DEA /* [CP] Embed Pods Frameworks */,
+				E96DD081FC0828F103E2A0B7 /* [CP] Copy Pods Resources */,
 			);
 			buildRules = (
 			);
@@ -361,8 +402,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				782AC9502875EEEC00E108AC /* ic_check.png in Resources */,
+				782AC94B2875EEEC00E108AC /* ic_close.png in Resources */,
+				782AC94F2875EEEC00E108AC /* SHCollectionViewCell.xib in Resources */,
 				78F122C4282C14E300983574 /* LaunchScreen.storyboard in Resources */,
 				78F122D6282E511000983574 /* GoogleService-Info.plist in Resources */,
+				782AC94D2875EEEC00E108AC /* SHViewController.xib in Resources */,
 				78F122C1282C14E300983574 /* Assets.xcassets in Resources */,
 				78F122BF282C14E200983574 /* Main.storyboard in Resources */,
 			);
@@ -410,6 +455,23 @@
 			shellScript = "diff \"${PODS_PODFILE_DIR_PATH}/Podfile.lock\" \"${PODS_ROOT}/Manifest.lock\" > /dev/null\nif [ $? != 0 ] ; then\n    # print error to STDERR\n    echo \"error: The sandbox is not in sync with the Podfile.lock. Run 'pod install' or update your CocoaPods installation.\" >&2\n    exit 1\nfi\n# This output is used by Xcode 'outputs' to avoid re-running this script phase.\necho \"SUCCESS\" > \"${SCRIPT_OUTPUT_FILE_0}\"\n";
 			showEnvVarsInLog = 0;
 		};
+		E96DD081FC0828F103E2A0B7 /* [CP] Copy Pods Resources */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Lavender/Pods-Lavender-resources-${CONFIGURATION}-input-files.xcfilelist",
+			);
+			name = "[CP] Copy Pods Resources";
+			outputFileListPaths = (
+				"${PODS_ROOT}/Target Support Files/Pods-Lavender/Pods-Lavender-resources-${CONFIGURATION}-output-files.xcfilelist",
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-Lavender/Pods-Lavender-resources.sh\"\n";
+			showEnvVarsInLog = 0;
+		};
 /* End PBXShellScriptBuildPhase section */
 
 /* Begin PBXSourcesBuildPhase section */
@@ -420,7 +482,9 @@
 				78F4DEF82837CCF00055639A /* User.swift in Sources */,
 				787A245B286CC854001156B0 /* ChatController.swift in Sources */,
 				78DEA87F2859EB74006DE4EF /* CustomImageView.swift in Sources */,
+				782AC94C2875EEEC00E108AC /* SHViewController.swift in Sources */,
 				787A245D286CCA5B001156B0 /* ChatCell.swift in Sources */,
+				782AC9512875EEEC00E108AC /* PickerController.swift in Sources */,
 				78DEA87A28578230006DE4EF /* Post.swift in Sources */,
 				78DEA887285F2958006DE4EF /* Comment.swift in Sources */,
 				78F4DEF62833FEDA0055639A /* UserProfileHeaderCell.swift in Sources */,
@@ -436,13 +500,16 @@
 				78104F4D284B492A000A9042 /* FollowLikeCell.swift in Sources */,
 				78DEA885285EFD85006DE4EF /* CommentCell.swift in Sources */,
 				78F122CF282C176700983574 /* LoginVC.swift in Sources */,
+				782AC94E2875EEEC00E108AC /* SHCollectionViewCell.swift in Sources */,
 				78DEA87C2859D22F006DE4EF /* UserPostCell.swift in Sources */,
 				78F122D4282E46A900983574 /* SignUpVC.swift in Sources */,
 				78DEA87028548B6E006DE4EF /* SelectImageVC.swift in Sources */,
 				78DEA87828548EBF006DE4EF /* SelectPhotoHeader.swift in Sources */,
+				787933BD28719C830095E83D /* CommentInputTextView.swift in Sources */,
 				787A2459286CC6A6001156B0 /* Message.swift in Sources */,
 				781287B828689ECD0011F411 /* SearchPostCell.swift in Sources */,
 				781287B428636BF10011F411 /* NotificationCell.swift in Sources */,
+				787933B9287162F90095E83D /* EditProfileController.swift in Sources */,
 				78F122D2282C1DD800983574 /* Extensions.swift in Sources */,
 				787E0121286ED513004FE3DA /* HashtagController.swift in Sources */,
 				78104F49284B479F000A9042 /* FollowLikeVC.swift in Sources */,
@@ -450,6 +517,7 @@
 				78DEA881285A16C8006DE4EF /* FeedCell.swift in Sources */,
 				780BC162286B6F9800FD82C7 /* MessageController.swift in Sources */,
 				781287B62864B2050011F411 /* Notification.swift in Sources */,
+				787933BB28719C070095E83D /* CommentInputAccessoryView.swift in Sources */,
 				780BC164286BD16E00FD82C7 /* MessengerCell.swift in Sources */,
 				787A2455286CB5A5001156B0 /* NewMessageController.swift in Sources */,
 				78F4DEFC283E9EFD0055639A /* SearchTableViewCell.swift in Sources */,
@@ -604,22 +672,26 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Lavender/Lavender.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 49372K56AS;
+				DEVELOPMENT_TEAM = ZC9XEE9PVC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Lavender/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We would like to access your photos";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Tenaity.Lavender;
+				PRODUCT_BUNDLE_IDENTIFIER = Tenaity.Lavender.Capy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
@@ -633,22 +705,26 @@
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
+				CODE_SIGN_ENTITLEMENTS = Lavender/Lavender.entitlements;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
-				DEVELOPMENT_TEAM = 49372K56AS;
+				DEVELOPMENT_TEAM = ZC9XEE9PVC;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = Lavender/Info.plist;
+				INFOPLIST_KEY_NSCameraUsageDescription = "";
+				INFOPLIST_KEY_NSPhotoLibraryUsageDescription = "We would like to access your photos";
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 14.4;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
 				MARKETING_VERSION = 1.0;
-				PRODUCT_BUNDLE_IDENTIFIER = Tenaity.Lavender;
+				PRODUCT_BUNDLE_IDENTIFIER = Tenaity.Lavender.Capy;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
 				SWIFT_VERSION = 5.0;
