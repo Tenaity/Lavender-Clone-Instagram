@@ -22,15 +22,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "closure #2 in closure #1 in UserProfileVC.fetchPosts():UserProfileVC.swift">
+      </ContextState>
+      <ContextState
          contextName = "closure #1 in closure #1 in closure #1 in MainTabVC.observeNotifications():MainTabVC.swift">
          <PersistentStrings>
             <PersistentString
                value = "snapshot.value">
             </PersistentString>
          </PersistentStrings>
-      </ContextState>
-      <ContextState
-         contextName = "closure #2 in closure #1 in UserProfileVC.fetchPosts():UserProfileVC.swift">
       </ContextState>
       <ContextState
          contextName = "UserProfileVC.collectionView(_:viewForSupplementaryElementOfKind:at:):UserProfileVC.swift">
@@ -40,6 +40,14 @@
             </PersistentString>
             <PersistentString
                value = "posts.count">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "closure #1 in FeedVC.fetchPost(withPostId:):FeedVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "isReachable">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -55,7 +63,23 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
+         contextName = "FeedVC.handleRefreshControl():FeedVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "isReachable">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
          contextName = "FeedVC.collectionView(_:cellForItemAt:):FeedVC.swift">
+      </ContextState>
+      <ContextState
+         contextName = "CommentVC.uploadCommentNotificationToServer():CommentVC.swift">
+         <PersistentStrings>
+            <PersistentString
+               value = "currentUid">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "FollowVC.handleFollowTapped(for:):FollowVC.swift">

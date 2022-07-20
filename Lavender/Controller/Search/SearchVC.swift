@@ -21,9 +21,54 @@ class SearchVC: UITableViewController, UISearchBarDelegate, UICollectionViewDele
     var collectionView: UICollectionView!
     var collectionViewEnabled = true
     var posts = [Post]()
+    let noInternetConnectionView: SnackbarView = NoInternetConnectionView()
+    
+    func checkInternet() {
+        
+        DispatchQueue.main.async {
+            if InternetConnectionManager.isConnectedToNetwork(){
+                print("Connected")
+            }else{
+                print("Not Connected")
+                // Create new Alert
+                var dialogMessage = UIAlertController(title: "Opps, no connection", message: "You should connect internet!", preferredStyle: .alert)
+                
+                // Create OK button with action handler
+                let openWifi = UIAlertAction(title: "Open wifi", style: .default, handler: { (action) -> Void in
+                    if let url = URL(string: "App-Prefs:root=WIFI") {
+                        if UIApplication.shared.canOpenURL(url) {
+                           let url =  UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                        }
+                    }
+                 })
+                
+                let cancelButton = UIAlertAction(title: "Cancel", style: .default, handler: { (action) -> Void in
+                    print("Cancel button tapped")
+                })
+                
+                //Add OK button to a dialog message
+                dialogMessage.addAction(openWifi)
+                
+                dialogMessage.addAction(cancelButton)
+                // Present Alert to
+                self.present(dialogMessage, animated: true, completion: nil)
+            }
+        }
+    }
+    
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        ReachabilityHandler.shared.startListening()
+    }
     
     override func viewDidLoad() {
+//        checkInternet()
         super.viewDidLoad()
+        
+        ReachabilityHandler.shared.startListening()
+        ReachabilityHandler.shared.onNetworkStateChanged = { [weak self] isReachable in
+            self?.handleNetworkState(isReachable: isReachable)
+        }
         
         view.backgroundColor = .white
         tableView.register(SearchTableViewCell.self, forCellReuseIdentifier: reuseIdentifier)
@@ -235,5 +280,19 @@ class SearchVC: UITableViewController, UISearchBarDelegate, UICollectionViewDele
                 self.collectionView.reloadData()
             })
         }
+    }
+}
+
+private extension SearchVC {
+    func handleNetworkState(isReachable: Bool) {
+        var content: NoInternetContent {
+            return NoInternetContent(message: "Opps, no connection")
+        }
+        guard !isReachable else {
+            noInternetConnectionView.hide()
+            return
+        }
+        noInternetConnectionView.show(content: content)
+        checkInternet()
     }
 }

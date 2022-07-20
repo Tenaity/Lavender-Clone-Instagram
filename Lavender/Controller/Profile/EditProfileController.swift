@@ -247,7 +247,10 @@ class EditProfileController: UIViewController, UIImagePickerControllerDelegate, 
         let currentUid = Auth.auth().currentUser?.uid,
         let user = self.user else { return }
         
-        Storage.storage().reference(forURL: user.profileImage).delete(completion: nil)
+        if user.profileImage != "" {
+            Storage.storage().reference(forURL: user.profileImage).delete(completion: nil)
+        }
+        
         
         // upload data
         guard let updoadData = profileImageView.image?.jpegData(compressionQuality: 0.3) else { return }

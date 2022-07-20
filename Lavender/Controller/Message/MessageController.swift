@@ -17,9 +17,14 @@ class MessageController: UITableViewController {
     
     var messages = [Message]()
     var messagesDictionary = [String: Message]()
+    let noInternetConnectionView: SnackbarView = NoInternetConnectionView()
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        ReachabilityHandler.shared.startListening()
+        ReachabilityHandler.shared.onNetworkStateChanged = { [weak self] isReachable in
+            self?.handleNetworkState(isReachable: isReachable)
+        }
         
         self.tableView.backgroundColor = .white
         
@@ -105,4 +110,17 @@ class MessageController: UITableViewController {
         }
     }
     
+}
+
+private extension MessageController {
+    func handleNetworkState(isReachable: Bool) {
+        var content: NoInternetContent {
+            return NoInternetContent(message: "Opps, no connection")
+        }
+        guard !isReachable else {
+            noInternetConnectionView.hide()
+            return
+        }
+        noInternetConnectionView.show(content: content)
+    }
 }

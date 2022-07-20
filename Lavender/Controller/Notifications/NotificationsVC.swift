@@ -16,10 +16,17 @@ class NotificationsVC: UITableViewController, NotificationCellDelegate {
     
     var timer: Timer?
     
-    var notifications = [Notification]()
+    var notifications = [NotificationModel]()
+    let noInternetConnectionView: SnackbarView = NoInternetConnectionView()
 
     override func viewDidLoad() {
+        
         super.viewDidLoad()
+        
+        ReachabilityHandler.shared.startListening()
+        ReachabilityHandler.shared.onNetworkStateChanged = { [weak self] isReachable in
+            self?.handleNetworkState(isReachable: isReachable)
+        }
         
         tableView.separatorColor = .clear
         
@@ -115,12 +122,12 @@ class NotificationsVC: UITableViewController, NotificationCellDelegate {
                 // if notification is for post
                 if let postId = dictionary["postId"] as? String {
                     Database.fetchPost(with: postId, completion: { post in
-                        let notification = Notification(user: user, post: post, dictionary: dictionary)
+                        let notification = NotificationModel(user: user, post: post, dictionary: dictionary)
                         self.notifications.append(notification)
                         self.handleReloadTable()
                     })
                 } else {
-                    let notification = Notification(user: user, dictionary: dictionary)
+                    let notification = NotificationModel(user: user, dictionary: dictionary)
                     self.notifications.append(notification)
                     self.handleReloadTable()
                 }
@@ -128,5 +135,52 @@ class NotificationsVC: UITableViewController, NotificationCellDelegate {
             NOTIFICATIONS_REF.child(currentUid).child(notificationID).child("checked").setValue(1)
         }
         
+    }
+    
+    func checkInternet() {
+        
+        DispatchQueue.main.async {
+            if InternetConnectionManager.isConnectedToNetwork(){
+                print("Connected")
+            }else{
+                print("Not Connected")
+                // Create new Alert
+                var dialogMessage = UIAlertController(title: "Opps, no connection", message: "You should connect internet!", preferredStyle: .alert)
+                
+                // Create OK button with action handler
+                let openWifi = UIAlertAction(title: "Open wifi", style: .default, handler: { (action) -> Void in
+                    if let url = URL(string: "App-Prefs:root=WIFI") {
+                        if UIApplication.shared.canOpenURL(url) {
+                           let url =  UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                        }
+                    }
+                 })
+                
+                let cancelButton = UIAlertAction(title: "Cancel", style: .default, handler: { (action) -> Void in
+                    print("Cancel button tapped")
+                })
+                
+                //Add OK button to a dialog message
+                dialogMessage.addAction(openWifi)
+                
+                dialogMessage.addAction(cancelButton)
+                // Present Alert to
+                self.present(dialogMessage, animated: true, completion: nil)
+            }
+        }
+    }
+}
+
+private extension NotificationsVC {
+    func handleNetworkState(isReachable: Bool) {
+        var content: NoInternetContent {
+            return NoInternetContent(message: "Opps, no connection")
+        }
+        guard !isReachable else {
+            noInternetConnectionView.hide()
+            return
+        }
+        noInternetConnectionView.show(content: content)
+        checkInternet()
     }
 }

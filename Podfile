@@ -14,5 +14,6 @@ pod 'Firebase/Messaging'
 pod 'Firebase/Firestore'
 pod 'ActiveLabel'
 pod 'GoogleSignIn', '5.0.2'
+pod 'Alamofire'
 
 end

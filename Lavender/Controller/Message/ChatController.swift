@@ -20,7 +20,7 @@ class ChatController: UICollectionViewController, UICollectionViewDelegateFlowLa
     
     lazy var containerView: UIView = {
         let containerView = UIView()
-        
+        containerView.backgroundColor = .white
         containerView.frame = CGRect(x:0, y:0, width: 100, height: 55)
         containerView.addSubview(sendButton)
         sendButton.anchor(top: nil, left: nil, bottom: nil, right: containerView.rightAnchor, paddingTop: 0, paddingLeft: 0, paddingBottom: 0, paddingRight: 8, width: 50, height: 0)

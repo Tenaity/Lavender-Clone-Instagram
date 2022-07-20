@@ -7,7 +7,7 @@
 
 import Foundation
 
-class Notification {
+class NotificationModel {
     
     enum NotificationType: Int, Printable {
         

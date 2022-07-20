@@ -79,12 +79,12 @@ extension UIButton {
             self.setTitle("Following", for: .normal)
             self.setTitleColor(.black, for: .normal)
             self.layer.borderColor = UIColor.lightGray.cgColor
-            self.backgroundColor = .white
+            self.backgroundColor = UIColor.rgbPrimary()
         } else {
             self.setTitle("Follow", for: .normal)
             self.setTitleColor(.white, for: .normal)
             self.layer.borderWidth = 0
-            self.backgroundColor = UIColor(red: 17/255, green: 154/255, blue: 237/255, alpha: 1)
+            self.backgroundColor = UIColor.rgbPrimary()
         }
     }
 }
@@ -186,9 +186,8 @@ extension UIViewController {
                             
                             let notificationValues = ["postId": postId,
                                                       "uid": currentUid,
-                                                      "type": mentionIntegerValue,
+                                                      "type": mentionIntegerValue!,
                                                       "creationDate": creationDate] as [String: Any]
-                            
                             if currentUid != uid {
                                 NOTIFICATIONS_REF.child(uid).childByAutoId().updateChildValues(notificationValues)
                             }

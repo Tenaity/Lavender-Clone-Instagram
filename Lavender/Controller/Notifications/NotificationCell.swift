@@ -14,7 +14,7 @@ class NotificationCell: UITableViewCell {
     
     var delegate: NotificationCellDelegate?
     
-    var notification: Notification? {
+    var notification: NotificationModel? {
         didSet {
             
             configureNotificationLabel()
@@ -43,7 +43,7 @@ class NotificationCell: UITableViewCell {
     let followButton: UIButton = {
         let button = UIButton(type: .system)
         button.setTitleColor(.white, for: .normal)
-        button.backgroundColor = UIColor(red: 17/255, green: 154/255, blue: 237/255, alpha: 1)
+        button.backgroundColor = UIColor.rgbPrimary()
         button.layer.cornerRadius = 3
         button.setTitle("Follow", for: .normal)
         button.addTarget(self, action: #selector(handleFollowTapped), for: .touchUpInside)
@@ -99,12 +99,12 @@ class NotificationCell: UITableViewCell {
                     self.followButton.setTitleColor(.black, for: .normal)
                     self.followButton.layer.borderWidth = 0.5
                     self.followButton.layer.borderColor = UIColor.lightGray.cgColor
-                    self.followButton.backgroundColor = .white
+                    self.followButton.backgroundColor = UIColor.rgbPrimary()
                 } else {
                     self.followButton.setTitle("Follow", for: .normal)
                     self.followButton.setTitleColor(.white, for: .normal)
                     self.followButton.layer.borderWidth = 0
-                    self.followButton.backgroundColor = UIColor(red: 17/255, green: 154/255, blue: 237/255, alpha: 1)
+                    self.followButton.backgroundColor = UIColor.rgbPrimary()
                 }
             })
             

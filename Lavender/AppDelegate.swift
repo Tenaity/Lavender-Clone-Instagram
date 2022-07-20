@@ -21,7 +21,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
         attemptToRegisterForNotifications(application: application)
         
         GIDSignIn.sharedInstance().clientID = "985863970055-u8s4v6kus8859u6phn7iqjqva3snnd7f.apps.googleusercontent.com"
-        
         return true
     }
     
@@ -64,7 +63,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate, UNUserNotificationCenterD
     }
     
     func messaging(_ messaging: Messaging, didReceiveRegistrationToken fcmToken: String?) {
-        print("----> fcmToken \(fcmToken)")
+//        print("----> fcmToken \(fcmToken)")
     }
 
     func application(_ application: UIApplication, didDiscardSceneSessions sceneSessions: Set<UISceneSession>) {

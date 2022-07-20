@@ -11,6 +11,7 @@ import Firebase
 class UploadPostVC: UIViewController, UITextViewDelegate {
     
     // MARK: Properties
+    let noInternetConnectionView: SnackbarView = NoInternetConnectionView()
     
     enum UploadAction: Int {
         case UploadPost
@@ -91,7 +92,41 @@ class UploadPostVC: UIViewController, UITextViewDelegate {
         USER_FEED_REF.child(currentUid).updateChildValues(values)
     }
     
+    func checkInternet() {
+        
+        DispatchQueue.main.async {
+            if InternetConnectionManager.isConnectedToNetwork(){
+                print("Connected")
+            }else{
+                print("Not Connected")
+                // Create new Alert
+                var dialogMessage = UIAlertController(title: "Opps, no connection", message: "You should connect internet!", preferredStyle: .alert)
+                
+                // Create OK button with action handler
+                let openWifi = UIAlertAction(title: "Open wifi", style: .default, handler: { (action) -> Void in
+                    if let url = URL(string: "App-Prefs:root=WIFI") {
+                        if UIApplication.shared.canOpenURL(url) {
+                           let url =  UIApplication.shared.open(url, options: [:], completionHandler: nil)
+                        }
+                    }
+                 })
+                
+                let cancelButton = UIAlertAction(title: "Cancel", style: .default, handler: { (action) -> Void in
+                    print("Cancel button tapped")
+                })
+                
+                //Add OK button to a dialog message
+                dialogMessage.addAction(openWifi)
+                
+                dialogMessage.addAction(cancelButton)
+                // Present Alert to
+                self.present(dialogMessage, animated: true, completion: nil)
+            }
+        }
+    }
+    
     func handleUploadPost() {
+
         guard let caption = captionTextView.text,
               let postImg = photoImageView.image,
               let currentUid = Auth.auth().currentUser?.uid else { return }
@@ -206,6 +241,12 @@ class UploadPostVC: UIViewController, UITextViewDelegate {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        ReachabilityHandler.shared.startListening()
+        ReachabilityHandler.shared.onNetworkStateChanged = { [weak self] isReachable in
+            self?.handleNetworkState(isReachable: isReachable)
+        }
+        
         view.backgroundColor = .white
         // configure view
         configureViewComponents()
@@ -218,7 +259,7 @@ class UploadPostVC: UIViewController, UITextViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
-        
+        ReachabilityHandler.shared.startListening()
         if uploadAction == .SaveChanges {
             configLoadContentEditPost()
         } else {
@@ -275,3 +316,18 @@ class UploadPostVC: UIViewController, UITextViewDelegate {
     }
 
 }
+
+private extension UploadPostVC {
+    func handleNetworkState(isReachable: Bool) {
+        var content: NoInternetContent {
+            return NoInternetContent(message: "Opps, no connection")
+        }
+        guard !isReachable else {
+            noInternetConnectionView.hide()
+            return
+        }
+        noInternetConnectionView.show(content: content)
+        checkInternet()
+    }
+}
+

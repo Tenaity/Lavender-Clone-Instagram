@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="19529" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <deployment identifier="iOS"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="19519"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="qXU-pu-hzD" customClass="SnackbarView" customModule="Lavender" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="463" height="82"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <subviews>
+                <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="CUm-TH-Asq">
+                    <rect key="frame" x="0.0" y="0.0" width="463" height="82"/>
+                    <subviews>
+                        <textField opaque="NO" contentMode="left" contentHorizontalAlignment="left" contentVerticalAlignment="center" text="Oops, no connection" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="mb7-D0-ksV">
+                            <rect key="frame" x="15" y="15" width="433" height="52"/>
+                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                            <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                            <textInputTraits key="textInputTraits"/>
+                        </textField>
+                    </subviews>
+                    <color key="backgroundColor" systemColor="systemPurpleColor"/>
+                    <constraints>
+                        <constraint firstItem="mb7-D0-ksV" firstAttribute="centerY" secondItem="CUm-TH-Asq" secondAttribute="centerY" id="32C-ru-chj"/>
+                        <constraint firstItem="mb7-D0-ksV" firstAttribute="top" secondItem="CUm-TH-Asq" secondAttribute="top" constant="15" id="4jF-ar-Pol"/>
+                        <constraint firstAttribute="trailing" secondItem="mb7-D0-ksV" secondAttribute="trailing" constant="15" id="YUB-1R-cz8"/>
+                        <constraint firstItem="mb7-D0-ksV" firstAttribute="leading" secondItem="CUm-TH-Asq" secondAttribute="leading" constant="15" id="jDl-vZ-BJe"/>
+                        <constraint firstAttribute="bottom" secondItem="mb7-D0-ksV" secondAttribute="bottom" constant="15" id="vFt-32-vC7"/>
+                    </constraints>
+                </view>
+            </subviews>
+            <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+            <accessibility key="accessibilityConfiguration">
+                <accessibilityTraits key="traits" notEnabled="YES"/>
+            </accessibility>
+            <constraints>
+                <constraint firstAttribute="trailing" secondItem="CUm-TH-Asq" secondAttribute="trailing" id="JJr-J6-hTn"/>
+                <constraint firstAttribute="bottom" secondItem="CUm-TH-Asq" secondAttribute="bottom" id="YRW-IG-PQh"/>
+                <constraint firstItem="CUm-TH-Asq" firstAttribute="leading" secondItem="qXU-pu-hzD" secondAttribute="leading" id="uOs-4Q-omu"/>
+                <constraint firstItem="CUm-TH-Asq" firstAttribute="top" secondItem="qXU-pu-hzD" secondAttribute="top" id="vtV-yn-wiG"/>
+            </constraints>
+            <freeformSimulatedSizeMetrics key="simulatedDestinationMetrics"/>
+            <connections>
+                <outlet property="contentViewSnackbar" destination="CUm-TH-Asq" id="KiC-xh-hoQ"/>
+                <outlet property="messageLabel" destination="mb7-D0-ksV" id="hMR-gW-Gih"/>
+            </connections>
+            <point key="canvasLocation" x="-210.86956521739131" y="34.821428571428569"/>
+        </view>
+    </objects>
+    <resources>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemPurpleColor">
+            <color red="0.68627450980392157" green="0.32156862745098042" blue="0.87058823529411766" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
+    </resources>
+</document>
